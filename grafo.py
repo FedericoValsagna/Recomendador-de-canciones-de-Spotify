@@ -1,18 +1,18 @@
 class Vertice:
 
-    def __init__(self, adyacentes, dato):
-<<<<<<< HEAD
+    def __init__(self, nombre, dato, adyacentes):
         self._dato = dato
+        self._nombre = nombre
         if not adyacentes:
             adyacentes = {}
         self._adyacentes = adyacentes
-=======
-        self.dato = dato
->>>>>>> 28bed956b28a3bcba7a00a463fca553a06daf4d8
+
+    def nombre(self):
+        return self._nombre
 
     def dato(self):
         return self._dato
-
+        
     def adyacentes(self):
         return self._adyacentes
 
