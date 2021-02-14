@@ -1,3 +1,5 @@
+import random
+
 class Vertice:
 
     def __init__(self, nombre, dato, adyacentes):
@@ -35,7 +37,7 @@ class Grafo:
                 if id in v.adyacentes:
                     v.adyacentes.pop(id)
         else:
-            for id_adyacente in self.vertices[id].adyacentes.keys:
+            for id_adyacente in self.vertices[id].adyacentes.keys():
                 self.vertices[id_adyacente].pop(id)
 
         dato = self.vertices[id].dato
@@ -84,10 +86,33 @@ class Grafo:
         return id in self.vertices
 
     def obtener_vertice_random(self):
-        pass
+        return random.choice(list(self.vertices))
+
+    def obtener_dato(self, id):
+        if id not in self.vertices:
+            raise ValueError("El vertice no existe")
+        return self.vertices[id].dato
+
+    def obtener_peso(self, id_1, id_2):
+        if id_1 not in self.vertices:
+            raise ValueError("El vertice 1 no existe")
+        if id_2 not in self.vertices:
+            raise ValueError("El vertice 2 no existe")
+        
+        if id_2 not in self.vertices[id_1].adyacentes:
+                raise ValueError("La arista no existe")
+
+        return self.vertices[id_1].adyacentes[id_2]
 
     def vertices(self):
-        pass
+        vertices = []
+        for id in self.vertices.keys():
+            vertices.append(id)
+        return vertices
 
-    def adyacentes(self, v):
-        pass
+    def adyacentes(self, id):
+        if id not in self.vertices:
+            raise ValueError("El vertice no existe")
+        adyacentes = []
+        for id in self.vertices[id].adyacentes.keys():
+            adyacentes.append(id)
