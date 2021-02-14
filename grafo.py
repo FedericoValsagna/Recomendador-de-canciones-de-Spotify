@@ -2,7 +2,7 @@ class Vertice:
 
     def __init__(self, adyacentes, dato):
         self.dato = dato
-        
+
     def dato(self):
         return self.dato
 
@@ -29,7 +29,7 @@ class Grafo:
     def borrar_arista(self):
         pass
 
-    def son_adyacentes(self, v1, v2):
+    def es_adyacentes(self, v1, v2):
         pass
 
     def existe_vertice(self, id):
