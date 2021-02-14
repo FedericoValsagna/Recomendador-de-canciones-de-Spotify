@@ -117,13 +117,13 @@ class Grafo:
 
         return self.vertices[id_1].adyacentes[id_2]
 
-    def vertices(self):
+    def obtener_vertices(self):
         vertices = []
         for id in self.vertices.keys():
             vertices.append(id)
         return vertices
 
-    def adyacentes(self, id):
+    def obtener_adyacentes(self, id):
         if id not in self.vertices:
             raise ValueError("El vertice no existe")
         adyacentes = []
