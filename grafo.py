@@ -20,7 +20,6 @@ class Grafo:
 
     def __init__(self, es_dirigido) -> None:
         self.vertices = {}
-        self.cantidad = 0
         self.es_dirigido = es_dirigido
 
     def __str__(self) -> str:
@@ -29,10 +28,11 @@ class Grafo:
     def __iter__(self):
         pass
 
-    def agregar_vertice(self, adyacentes, dato):
-        v = Vertice()
-        self.vertices[self.cantidad] = v
-        self.cantidad += 1
+    def agregar_vertice(self, adyacentes, dato, id):
+        if id in self.vertices:
+            raise ValueError("El vertice ya existe en el grafo")
+        v = Vertice(id, dato, adyacentes)
+        self.vertices[id] = v
 
     def borrar_vertice(self):
         pass
