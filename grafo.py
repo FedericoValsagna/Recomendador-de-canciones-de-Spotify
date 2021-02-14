@@ -12,22 +12,22 @@ class Grafo:
     def agregar_vertice(self, Vertice):
         pass
 
-    def borrar_vertice():
+    def borrar_vertice(self):
         pass
 
-    def agregar_arista():
+    def agregar_arista(self):
         pass
 
-    def borrar_arista():
+    def borrar_arista(self):
         pass
 
-    def son_adyacentes(v1, v2):
+    def son_adyacentes(self, v1, v2):
         pass
 
-    def existe_vertice(id):
+    def existe_vertice(self, id):
         pass
 
-    def obtener_vertice_random():
+    def obtener_vertice_random(self):
         pass
 
     def vertices(self):
