@@ -77,11 +77,11 @@ class Grafo:
         if not self.es_dirigido:
             self.vertices[id_2].adyacentes.pop(id_1)
 
-    def es_adyacentes(self, v1, v2):
-        pass
+    def es_adyacente(self, id_1, id_2):
+        return id_2 in self.vertices[id_1].adyacentes
 
     def existe_vertice(self, id):
-        pass
+        return id in self.vertices
 
     def obtener_vertice_random(self):
         pass
