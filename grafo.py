@@ -1,10 +1,20 @@
 class Vertice:
 
-    def __init__(self, adyacentes, dato):
-        self.dato = dato
+    def __init__(self, nombre, dato, adyacentes):
+        self._dato = dato
+        self._nombre = nombre
+        if not adyacentes:
+            adyacentes = {}
+        self._adyacentes = adyacentes
+
+    def nombre(self):
+        return self._nombre
 
     def dato(self):
-        return self.dato
+        return self._dato
+        
+    def adyacentes(self):
+        return self._adyacentes
 
 class Grafo:
 
