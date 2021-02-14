@@ -2,9 +2,8 @@ import random
 
 class Vertice:
 
-    def __init__(self, nombre, dato, adyacentes):
+    def __init__(self, dato, adyacentes):
         self.dato = dato
-        self.nombre = nombre
         if not adyacentes:
             adyacentes = {}
         self.adyacentes = adyacentes
@@ -18,14 +17,11 @@ class Grafo:
     def __str__(self) -> str:
         pass
 
-    def __iter__(self):
-        pass
-
     def agregar_vertice(self, id, adyacentes, dato):
         if id in self.vertices:
             raise ValueError("El vertice ya existe")
 
-        v = Vertice(id, dato, adyacentes)
+        v = Vertice(dato, adyacentes)
         self.vertices[id] = v
 
     def borrar_vertice(self, id):
