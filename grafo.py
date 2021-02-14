@@ -1,8 +1,15 @@
 class Vertice:
     def __init__(self, adyacentes, dato):
-        self.dato = dato
+        self._dato = dato
+        if not adyacentes:
+            adyacentes = {}
+        self._adyacentes = adyacentes
+
     def dato(self):
-        return self.dato
+        return self._dato
+
+    def adyacentes(self):
+        return self._adyacentes
 
 class Grafo:
 
