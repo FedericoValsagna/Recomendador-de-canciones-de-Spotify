@@ -44,8 +44,15 @@ class Grafo:
         self.vertices.pop(id)
         return dato
 
-    def cambiar_vertice(self, id, adyacentes, dato):
-        pass
+    def mover_vertice(self, id, adyacentes):
+        dato = self.borrar_vertice(id)
+        self.agregar_vertice(id, adyacentes, dato)
+    
+    def cambiar_dato(self, id, dato):
+        if id not in self.vertices:
+            raise ValueError("El vertice no existe")
+
+        self.vertices[id].dato = dato
         
     def agregar_arista(self, id_1, id_2, peso=0):
         if id_1 not in self.vertices:
@@ -60,11 +67,7 @@ class Grafo:
 
         if not self.es_dirigido:
             self.vertices[id_2].adyacentes[id_1] = peso
-            
-
-    def cambiar_arista(self, id_1, id_2, peso=0):
-        pass
-
+    
     def borrar_arista(self, id_1, id_2):
         if id_1 not in self.vertices:
             raise ValueError("El vertice 1 no existe")
@@ -78,6 +81,20 @@ class Grafo:
 
         if not self.es_dirigido:
             self.vertices[id_2].adyacentes.pop(id_1)
+
+    def cambiar_peso(self, id_1, id_2, peso):
+        if id_1 not in self.vertices:
+            raise ValueError("El vertice 1 no existe")
+        if id_2 not in self.vertices:
+            raise ValueError("El vertice 2 no existe")
+
+        if id_2 not in self.vertices[id_1].adyacentes:
+                raise ValueError("La arista no existe")
+
+        self.vertices[id_1].adyacentes[id_2] = peso
+
+        if not self.es_dirigido:
+            self.vertices[id_2].adyacentes[id_1] = peso
 
     def es_adyacente(self, id_1, id_2):
         return id_2 in self.vertices[id_1].adyacentes
