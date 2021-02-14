@@ -8,8 +8,10 @@ class Vertice:
 
 class Grafo:
 
-    def __init__() -> None:
-        pass
+    def __init__(self, es_dirigido) -> None:
+        self.vertices = {}
+        self.cantidad = 0
+        self.es_dirigido = es_dirigido
 
     def __str__(self) -> str:
         pass
@@ -17,8 +19,10 @@ class Grafo:
     def __iter__(self):
         pass
 
-    def agregar_vertice(self, Vertice):
-        pass
+    def agregar_vertice(self, adyacentes, dato):
+        v = Vertice()
+        self.vertices[self.cantidad] = v
+        self.cantidad += 1
 
     def borrar_vertice(self):
         pass
