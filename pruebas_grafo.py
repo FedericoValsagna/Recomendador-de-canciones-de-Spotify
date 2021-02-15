@@ -51,7 +51,7 @@ def prueba_grafo_aristas_no_dirigido():
     assert(not grafo.es_adyacente("4","3"))
 
 def prueba_grafo_aristas_dirigido():
-    grafo = Grafo(True)
+    grafo = Grafo(es_dirigido=True)
 
     grafo.agregar_vertice("1", None)
     grafo.agregar_vertice("2", None)
@@ -78,6 +78,23 @@ def prueba_grafo_aristas_dirigido():
     assert(grafo.es_adyacente("4","1"))
     assert(not grafo.es_adyacente("4","2"))
     assert(not grafo.es_adyacente("4","3"))
+
+def prueba_grafo_obtener_adyacentes():
+    grafo = Grafo(es_dirigido=True)
+
+    grafo.agregar_vertice("1", None)
+    grafo.agregar_vertice("2", None)
+    grafo.agregar_vertice("3", None)
+    grafo.agregar_vertice("4", None)
+    grafo.agregar_arista("1","2")
+    grafo.agregar_arista("2","3")
+    grafo.agregar_arista("3","2")
+    grafo.agregar_arista("3","4")
+    grafo.agregar_arista("4","1")
+
+    adyacentes = grafo.obtener_adyacentes("1")
+    for ad in adyacentes:
+        assert(grafo.es_adyacente("1", ad))
 
 def prueba_grafo_obtener_vertices():
     grafo = Grafo(True)
@@ -121,6 +138,7 @@ def main():
     prueba_grafo_agregar_borrar_vertices()
     prueba_grafo_aristas_no_dirigido()
     prueba_grafo_aristas_dirigido()
+    prueba_grafo_obtener_adyacentes()
     prueba_grafo_obtener_vertices()
     prueba_grafo_vertice_aleatorio()
     print("Todo OK :)")

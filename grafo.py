@@ -120,6 +120,7 @@ class Grafo:
         adyacentes = []
         for id in self.vertices[id].adyacentes.keys():
             adyacentes.append(id)
+        return adyacentes
 
     def obtener_cantidad(self):
         return self.cantidad
