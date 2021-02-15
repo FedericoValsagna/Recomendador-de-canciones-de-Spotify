@@ -9,8 +9,18 @@ class Grafo:
         self.cantidad = 0
 
     def __str__(self) -> str:
-        pass
-
+        print = ""
+        for id, v in self.vertices.items():
+            print += f"{id}: "
+            contador = 0
+            for ad in v.adyacentes.keys():
+                if contador != 0:
+                    print += ", "
+                print += f"{ad}"
+                contador += 1
+            print += "\n"
+        return print
+        
     def agregar_vertice(self, id, dato):
         if id in self.vertices:
             raise ValueError("El vertice ya existe")
