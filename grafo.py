@@ -3,26 +3,27 @@ from vertice import Vertice
 
 class Grafo:
 
-    def __init__(self, es_dirigido) -> None:
+    def __init__(self, es_dirigido=False) -> None:
         self.vertices = {}
         self.es_dirigido = es_dirigido
+        self.cantidad = 0
 
     def __str__(self) -> str:
         pass
 
-    def agregar_vertice(self, id, adyacentes, dato):
+    def agregar_vertice(self, id, dato):
         if id in self.vertices:
             raise ValueError("El vertice ya existe")
-
-        v = Vertice(dato, adyacentes)
+        v = Vertice(dato)
         self.vertices[id] = v
-
+        self.cantidad += 1
+ 
     def borrar_vertice(self, id):
         if id not in self.vertices:
             raise ValueError("El vertice no existe")
-
+        culo = {}
         if self.es_dirigido:
-            for v in self.vertices:
+            for v in self.vertices.values():
                 if id in v.adyacentes:
                     v.adyacentes.pop(id)
         else:
@@ -31,11 +32,8 @@ class Grafo:
 
         dato = self.vertices[id].dato
         self.vertices.pop(id)
+        self.cantidad -= 1
         return dato
-
-    def mover_vertice(self, id, adyacentes):
-        dato = self.borrar_vertice(id)
-        self.agregar_vertice(id, adyacentes, dato)
     
     def cambiar_dato(self, id, dato):
         if id not in self.vertices:
@@ -122,3 +120,6 @@ class Grafo:
         adyacentes = []
         for id in self.vertices[id].adyacentes.keys():
             adyacentes.append(id)
+
+    def obtener_cantidad(self):
+        return self.cantidad

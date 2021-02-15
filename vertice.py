@@ -1,7 +1,5 @@
 class Vertice:
 
-    def __init__(self, dato, adyacentes):
+    def __init__(self, dato):
         self.dato = dato
-        if not adyacentes:
-            adyacentes = {}
-        self.adyacentes = adyacentes
+        self.adyacentes = {}
