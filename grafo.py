@@ -31,7 +31,6 @@ class Grafo:
     def borrar_vertice(self, id):
         if id not in self.vertices:
             raise ValueError("El vertice no existe")
-        culo = {}
         if self.es_dirigido:
             for v in self.vertices.values():
                 if id in v.adyacentes:
