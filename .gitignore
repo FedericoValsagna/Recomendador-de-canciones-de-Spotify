@@ -1,3 +1,4 @@
 
 spotify-procesado.tsv
 *.pyc
+.vscode/settings.json
