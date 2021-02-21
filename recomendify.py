@@ -10,14 +10,15 @@ PLAYLIST_ID = 4
 PLAYLIST_NAME = 5
 GENRES = 6
 
-
 def procesar_archivo(ruta, grafo1, grafo2):
-    with open(ruta) as archivo:
+    with open(ruta, encoding = "utf8") as archivo:
+        archivo.readline() # 2 veces para no usar el header del archivo
         linea = archivo.readline()
         while linea:     # linea != ''
             linea = linea.rstrip('\n')
-            linea = linea.split('   ')
+            linea = linea.split('\t')
             procesar_linea(linea, grafo1, grafo2)
+            linea = archivo.readline()
 
 def procesar_linea(linea, grafo1, grafo2):
 
@@ -25,17 +26,17 @@ def procesar_linea(linea, grafo1, grafo2):
     usuario = linea[USER_ID]
     #Grafo1
     if not grafo1.existe_vertice(usuario):
-        grafo1.agregar_vertice(usuario)
+        grafo1.agregar_vertice(usuario, None)
     
     if not grafo1.existe_vertice(cancion):
-        grafo1.agregar_vertice(cancion)     # Genres as dato
+        grafo1.agregar_vertice(cancion, None)     # Genres as dato
 
     if not grafo1.es_adyacente(usuario, cancion):
         grafo1.agregar_arista(usuario, cancion, [])
     
     lista_playlists = grafo1.obtener_peso(usuario, cancion)
     playlist = (linea[PLAYLIST_ID], linea[PLAYLIST_NAME])
-    lista_playlists.append((playlist)
+    lista_playlists.append(playlist)
     #Grafo2
 
 def main():
