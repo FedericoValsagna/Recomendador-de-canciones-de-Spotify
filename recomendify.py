@@ -15,18 +15,21 @@ def procesar_archivo(ruta, grafo1, grafo2):
         archivo.readline() # 2 veces para no usar el header del archivo
         linea = archivo.readline()
         canciones_anteriores = []
+        playlist_actual = (linea[PLAYLIST_ID], linea[PLAYLIST_NAME])
         while linea:     # linea != ''
             linea = linea.rstrip('\n')
             linea = linea.split('\t')
-            procesar_linea(linea, grafo1, grafo2, canciones_anteriores)
+            procesar_linea(linea, grafo1, grafo2, canciones_anteriores, playlist_actual)
             linea = archivo.readline()
+    
+    
 
-def procesar_linea(linea, grafo1, grafo2, canciones_anteriores):
+def procesar_linea(linea, grafo1, grafo2, canciones_anteriores, playlist_actual):
     cancion = " - ".join((linea[TRACK_NAME], linea[ARTIST]))
     usuario = linea[USER_ID]
     playlist = (linea[PLAYLIST_ID], linea[PLAYLIST_NAME])
     crear_grafo1(grafo1, linea, cancion, usuario, playlist)
-    crear_grafo2(grafo2, cancion, canciones_anteriores, playlist)
+    crear_grafo2(grafo2, cancion, playlist, canciones_anteriores, playlist_actual)
 
 def crear_grafo1(grafo1, linea, cancion, usuario, playlist):
     if not grafo1.existe_vertice(usuario):
@@ -41,12 +44,15 @@ def crear_grafo1(grafo1, linea, cancion, usuario, playlist):
     lista_playlists = grafo1.obtener_peso(usuario, cancion)
     lista_playlists.append(playlist)
 
-def crear_grafo2(grafo2, cancion, canciones_anteriores, playlist):
+def crear_grafo2(grafo2, cancion, playlist, canciones_anteriores, playlist_actual):
     if not grafo2.existe_vertice(cancion):
         grafo2.agregar_vertice(cancion)
-    
-    if len(canciones_anteriores) != 0 and playlist != canciones_anteriores[0]:
-        canciones_anteriores = []
+    #print(canciones_anteriores)
+    if playlist != playlist_actual:
+        print(playlist)
+        print(playlist_actual)
+        canciones_anteriores.clear()
+        playlist_actual = playlist
 
     for track in canciones_anteriores:
         if not grafo2.es_adyacente(cancion, track):
