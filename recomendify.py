@@ -19,21 +19,22 @@ def procesar_archivo(ruta, grafo1, grafo2):
             linea = linea.split('\t')
             procesar_linea(linea, grafo1, grafo2)
             linea = archivo.readline()
-        print(grafo1)
+        print(grafo2)
 
 def procesar_linea(linea, grafo1, grafo2):
     cancion = " - ".join((linea[TRACK_NAME], linea[ARTIST]))
     usuario = linea[USER_ID]
     crear_grafo1(grafo1, linea, cancion, usuario)
-    crear_grafo2(grafo2)
+    canciones_anteriores = []
+    crear_grafo2(grafo2, cancion, canciones_anteriores, (linea[PLAYLIST_ID], linea[PLAYLIST_NAME)])
     #Grafo2
 
 def crear_grafo1(grafo1, linea, cancion, usuario):
     if not grafo1.existe_vertice(usuario):
-        grafo1.agregar_vertice(usuario, None)
+        grafo1.agregar_vertice(usuario)
     
     if not grafo1.existe_vertice(cancion):
-        grafo1.agregar_vertice(cancion, None)     # Genres as dato
+        grafo1.agregar_vertice(cancion)     # Genres as dato
 
     if not grafo1.es_adyacente(usuario, cancion):
         grafo1.agregar_arista(usuario, cancion, [])
@@ -42,8 +43,20 @@ def crear_grafo1(grafo1, linea, cancion, usuario):
     playlist = (linea[PLAYLIST_ID], linea[PLAYLIST_NAME])
     lista_playlists.append(playlist)
 
-def crear_grafo2(grafo2):
-    pass
+def crear_grafo2(grafo2, cancion, canciones_anteriores, playlist):
+    if not grafo2.existe_vertice(cancion):
+        grafo2.agregar_vertice(cancion)
+    
+    if len(canciones_anteriores) != 0 and playlist != canciones_anteriores[0]:
+        canciones_anteriores = []
+
+    for track in canciones_anteriores:
+        if not grafo2.es_adyacente(cancion, track):
+            grafo2.agregar_arista(cancion, track, [])
+        
+        lista_playlists = grafo2.obtener_peso(cancion, track)
+        lista_playlists.append(playlist)
+    canciones_anteriores.append(cancion)
 
 
 def main():
