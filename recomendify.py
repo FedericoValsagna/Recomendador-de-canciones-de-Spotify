@@ -26,14 +26,13 @@ def procesar_linea(linea, grafo1, grafo2):
     usuario = linea[USER_ID]
     crear_grafo1(grafo1, linea, cancion, usuario)
     crear_grafo2(grafo2)
-    #Grafo2
 
 def crear_grafo1(grafo1, linea, cancion, usuario):
     if not grafo1.existe_vertice(usuario):
-        grafo1.agregar_vertice(usuario, None)
+        grafo1.agregar_vertice(usuario)
     
     if not grafo1.existe_vertice(cancion):
-        grafo1.agregar_vertice(cancion, None)     # Genres as dato
+        grafo1.agregar_vertice(cancion)     # Genres as dato
 
     if not grafo1.es_adyacente(usuario, cancion):
         grafo1.agregar_arista(usuario, cancion, [])

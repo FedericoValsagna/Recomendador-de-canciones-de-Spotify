@@ -21,10 +21,10 @@ class Grafo:
             print += "\n"
         return print
         
-    def agregar_vertice(self, id, dato):
+    def agregar_vertice(self, id):
         if id in self.vertices:
             raise ValueError("El vertice ya existe")
-        v = Vertice(dato)
+        v = Vertice()
         self.vertices[id] = v
         self.cantidad += 1
  
@@ -39,16 +39,8 @@ class Grafo:
             for id_adyacente in self.vertices[id].adyacentes.keys():
                 self.vertices[id_adyacente].pop(id)
 
-        dato = self.vertices[id].dato
         self.vertices.pop(id)
         self.cantidad -= 1
-        return dato
-    
-    def cambiar_dato(self, id, dato):
-        if id not in self.vertices:
-            raise ValueError("El vertice no existe")
-
-        self.vertices[id].dato = dato
         
     def agregar_arista(self, id_1, id_2, peso=0):
         if id_1 not in self.vertices:
@@ -73,10 +65,12 @@ class Grafo:
         if id_2 not in self.vertices[id_1].adyacentes:
                 raise ValueError("La arista no existe")
 
-        self.vertices[id_1].adyacentes.pop(id_2)
+        peso = self.vertices[id_1].adyacentes.pop(id_2)
 
         if not self.es_dirigido:
             self.vertices[id_2].adyacentes.pop(id_1)
+
+        return peso
 
     def cambiar_peso(self, id_1, id_2, peso):
         if id_1 not in self.vertices:
@@ -100,11 +94,6 @@ class Grafo:
 
     def obtener_vertice_random(self):
         return random.choice(list(self.vertices))
-
-    def obtener_dato(self, id):
-        if id not in self.vertices:
-            raise ValueError("El vertice no existe")
-        return self.vertices[id].dato
 
     def obtener_peso(self, id_1, id_2):
         if id_1 not in self.vertices:
