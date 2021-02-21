@@ -6,27 +6,28 @@ class Grafo:
     def __init__(self, es_dirigido=False) -> None:
         self.vertices = {}
         self.es_dirigido = es_dirigido
-        self.cantidad = 0
+        self.cantidad_vertices = 0
+        self.cantidad_aristas = 0
 
     def __str__(self) -> str:
-        print = ""
+        grafo = ""
         for id, v in self.vertices.items():
-            print += f"{id}: "
+            grafo += f"{id}: "
             contador = 0
             for ad in v.adyacentes.keys():
                 if contador != 0:
-                    print += ", "
-                print += f"{ad}"
+                    grafo += ", "
+                grafo += f"{ad}"
                 contador += 1
-            print += "\n"
-        return print
+            grafo += "\n"
+        return grafo
         
     def agregar_vertice(self, id):
         if id in self.vertices:
             raise ValueError("El vertice ya existe")
         v = Vertice()
         self.vertices[id] = v
-        self.cantidad += 1
+        self.cantidad_vertices += 1
  
     def borrar_vertice(self, id):
         if id not in self.vertices:
@@ -40,7 +41,7 @@ class Grafo:
                 self.vertices[id_adyacente].pop(id)
 
         self.vertices.pop(id)
-        self.cantidad -= 1
+        self.cantidad_vertices -= 1
         
     def agregar_arista(self, id_1, id_2, peso=0):
         if id_1 not in self.vertices:
@@ -53,7 +54,10 @@ class Grafo:
         
         self.vertices[id_1].adyacentes[id_2] = peso
 
+        self.cantidad_aristas += 1
+
         if not self.es_dirigido:
+            self.cantidad_aristas += 1
             self.vertices[id_2].adyacentes[id_1] = peso
     
     def borrar_arista(self, id_1, id_2):
@@ -66,6 +70,8 @@ class Grafo:
                 raise ValueError("La arista no existe")
 
         peso = self.vertices[id_1].adyacentes.pop(id_2)
+
+        self.cantidad_aristas -= 1
 
         if not self.es_dirigido:
             self.vertices[id_2].adyacentes.pop(id_1)
@@ -120,5 +126,8 @@ class Grafo:
             adyacentes.append(id)
         return adyacentes
 
-    def obtener_cantidad(self):
-        return self.cantidad
+    def obtener_cantidad_vertices(self):
+        return self.cantidad_vertices
+
+    def obtener_cantidad_aristas(self):
+        return self.cantidad_aristas
