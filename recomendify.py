@@ -14,18 +14,18 @@ def procesar_archivo(ruta, grafo1, grafo2):
     with open(ruta, encoding = "utf8") as archivo:
         archivo.readline() # 2 veces para no usar el header del archivo
         linea = archivo.readline()
+        canciones_anteriores = []
         while linea:     # linea != ''
             linea = linea.rstrip('\n')
             linea = linea.split('\t')
-            procesar_linea(linea, grafo1, grafo2)
+            procesar_linea(linea, grafo1, grafo2, canciones_anteriores)
             linea = archivo.readline()
         print(grafo2)
 
-def procesar_linea(linea, grafo1, grafo2):
+def procesar_linea(linea, grafo1, grafo2, canciones_anteriores):
     cancion = " - ".join((linea[TRACK_NAME], linea[ARTIST]))
     usuario = linea[USER_ID]
     crear_grafo1(grafo1, linea, cancion, usuario)
-    canciones_anteriores = []
     crear_grafo2(grafo2, cancion, canciones_anteriores, (linea[PLAYLIST_ID], linea[PLAYLIST_NAME]))
 
 def crear_grafo1(grafo1, linea, cancion, usuario):
