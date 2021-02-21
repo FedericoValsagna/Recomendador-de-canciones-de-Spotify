@@ -20,15 +20,15 @@ def procesar_archivo(ruta, grafo1, grafo2):
             linea = linea.split('\t')
             procesar_linea(linea, grafo1, grafo2, canciones_anteriores)
             linea = archivo.readline()
-        print(grafo2)
 
 def procesar_linea(linea, grafo1, grafo2, canciones_anteriores):
     cancion = " - ".join((linea[TRACK_NAME], linea[ARTIST]))
     usuario = linea[USER_ID]
-    crear_grafo1(grafo1, linea, cancion, usuario)
-    crear_grafo2(grafo2, cancion, canciones_anteriores, (linea[PLAYLIST_ID], linea[PLAYLIST_NAME]))
+    playlist = (linea[PLAYLIST_ID], linea[PLAYLIST_NAME])
+    crear_grafo1(grafo1, linea, cancion, usuario, playlist)
+    crear_grafo2(grafo2, cancion, canciones_anteriores, playlist)
 
-def crear_grafo1(grafo1, linea, cancion, usuario):
+def crear_grafo1(grafo1, linea, cancion, usuario, playlist):
     if not grafo1.existe_vertice(usuario):
         grafo1.agregar_vertice(usuario)
     
@@ -39,7 +39,6 @@ def crear_grafo1(grafo1, linea, cancion, usuario):
         grafo1.agregar_arista(usuario, cancion, [])
     
     lista_playlists = grafo1.obtener_peso(usuario, cancion)
-    playlist = (linea[PLAYLIST_ID], linea[PLAYLIST_NAME])
     lista_playlists.append(playlist)
 
 def crear_grafo2(grafo2, cancion, canciones_anteriores, playlist):
