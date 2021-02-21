@@ -8,8 +8,8 @@ def prueba_grafo_crear():
 def prueba_grafo_agregar_borrar_vertices():
     grafo = Grafo(es_dirigido=True)
 
-    grafo.agregar_vertice("1", None)
-    grafo.agregar_vertice("2", None)
+    grafo.agregar_vertice("1")
+    grafo.agregar_vertice("2")
 
     assert(grafo.obtener_cantidad() == 2)
     for v in grafo.obtener_vertices():
@@ -26,10 +26,10 @@ def prueba_grafo_agregar_borrar_vertices():
 def prueba_grafo_aristas_adyacencia_no_dirigido():
     grafo = Grafo()
 
-    grafo.agregar_vertice("1", None)
-    grafo.agregar_vertice("2", None)
-    grafo.agregar_vertice("3", None)
-    grafo.agregar_vertice("4", None)
+    grafo.agregar_vertice("1")
+    grafo.agregar_vertice("2")
+    grafo.agregar_vertice("3")
+    grafo.agregar_vertice("4")
     grafo.agregar_arista("1","2")
     grafo.agregar_arista("2","3")
     grafo.agregar_arista("4","1")
@@ -57,10 +57,10 @@ def prueba_grafo_aristas_adyacencia_no_dirigido():
 def prueba_grafo_aristas_adyacencia_dirigido():
     grafo = Grafo(es_dirigido=True)
 
-    grafo.agregar_vertice("1", None)
-    grafo.agregar_vertice("2", None)
-    grafo.agregar_vertice("3", None)
-    grafo.agregar_vertice("4", None)
+    grafo.agregar_vertice("1")
+    grafo.agregar_vertice("2")
+    grafo.agregar_vertice("3")
+    grafo.agregar_vertice("4")
     grafo.agregar_arista("1","2")
     grafo.agregar_arista("2","3")
     grafo.agregar_arista("3","2")
@@ -90,11 +90,11 @@ def prueba_grafo_aristas_adyacencia_dirigido():
 def prueba_grafo_aristas_obtener_peso_no_dirigido():
     grafo = Grafo()
 
-    grafo.agregar_vertice("1", None)
-    grafo.agregar_vertice("2", None)
-    grafo.agregar_vertice("3", None)
-    grafo.agregar_vertice("4", None)
-    grafo.agregar_vertice("5", None)
+    grafo.agregar_vertice("1")
+    grafo.agregar_vertice("2")
+    grafo.agregar_vertice("3")
+    grafo.agregar_vertice("4")
+    grafo.agregar_vertice("5")
     grafo.agregar_arista("1","2",4)
     grafo.agregar_arista("2","3",3)
     grafo.agregar_arista("4","1",-547)
@@ -115,10 +115,10 @@ def prueba_grafo_aristas_obtener_peso_no_dirigido():
 def prueba_grafo_aristas_obtener_peso_dirigido():
     grafo = Grafo(es_dirigido= True)
 
-    grafo.agregar_vertice("1", None)
-    grafo.agregar_vertice("2", None)
-    grafo.agregar_vertice("3", None)
-    grafo.agregar_vertice("4", None)
+    grafo.agregar_vertice("1")
+    grafo.agregar_vertice("2")
+    grafo.agregar_vertice("3")
+    grafo.agregar_vertice("4")
     grafo.agregar_arista("1","2",4)
     grafo.agregar_arista("2","3",3)
     grafo.agregar_arista("3","2",0)
@@ -135,10 +135,10 @@ def prueba_grafo_aristas_obtener_peso_dirigido():
 def prueba_grafo_obtener_adyacentes():
     grafo = Grafo(es_dirigido=True)
 
-    grafo.agregar_vertice("1", None)
-    grafo.agregar_vertice("2", None)
-    grafo.agregar_vertice("3", None)
-    grafo.agregar_vertice("4", None)
+    grafo.agregar_vertice("1")
+    grafo.agregar_vertice("2")
+    grafo.agregar_vertice("3")
+    grafo.agregar_vertice("4")
     grafo.agregar_arista("1","2")
     grafo.agregar_arista("2","3")
     grafo.agregar_arista("3","2")
@@ -152,10 +152,10 @@ def prueba_grafo_obtener_adyacentes():
 def prueba_grafo_obtener_vertices():
     grafo = Grafo(True)
 
-    grafo.agregar_vertice("1", None)
-    grafo.agregar_vertice("2", None)
-    grafo.agregar_vertice("3", None)
-    grafo.agregar_vertice("4", None)
+    grafo.agregar_vertice("1")
+    grafo.agregar_vertice("2")
+    grafo.agregar_vertice("3")
+    grafo.agregar_vertice("4")
     grafo.agregar_arista("1","2")
     grafo.agregar_arista("2","3")
     grafo.agregar_arista("3","2")
@@ -169,10 +169,10 @@ def prueba_grafo_obtener_vertices():
 def prueba_grafo_vertice_aleatorio():
     grafo = Grafo(True)
 
-    grafo.agregar_vertice("1", None)
-    grafo.agregar_vertice("2", None)
-    grafo.agregar_vertice("3", None)
-    grafo.agregar_vertice("4", None)
+    grafo.agregar_vertice("1")
+    grafo.agregar_vertice("2")
+    grafo.agregar_vertice("3")
+    grafo.agregar_vertice("4")
     grafo.agregar_arista("1","2")
     grafo.agregar_arista("2","3")
     grafo.agregar_arista("3","2")

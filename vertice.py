@@ -1,5 +1,4 @@
 class Vertice:
 
-    def __init__(self, dato):
-        self.dato = dato
+    def __init__(self):
         self.adyacentes = {}
