@@ -37,4 +37,31 @@ def bfs(grafo, id_origen):
                 q.appendleft(w)
     return padres, orden
 
+def bfs_parcial(grafo, id_origen, id_destino):
+    padres = {}
+    visitados = set()
+    padres[id_origen] = None
+    visitados.add(id_origen)
+    cola = deque()
+    cola.appendleft(id_origen)
+    while len(cola) > 0:
+        vertice = cola.pop()
+        for adyacente in grafo.obtener_adyacentes(vertice):
+            if adyacente not in visitados:
+                padres[adyacente] = vertice
+                visitados.add(adyacente)
+                cola.appendleft(adyacente)
+                if adyacente == id_destino:
+                    return padres
 
+def camino_mas_corto(grafo, id_origen, id_destino):
+    padres = bfs_parcial(grafo, id_origen, id_destino)
+
+    camino = []
+    camino.append((id_destino, padres[id_destino]))
+    vertice_anterior = padres[id_destino]
+    while (id_origen, None) not in camino:
+        camino.append((vertice_anterior, padres[vertice_anterior]))
+        vertice_anterior = padres[vertice_anterior]
+    return camino
+                

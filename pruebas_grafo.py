@@ -1,5 +1,5 @@
 from grafo import Grafo
-
+from funciones_grafo import *
 def prueba_grafo_crear():
     grafo = Grafo(es_dirigido=True)
 
@@ -131,7 +131,6 @@ def prueba_grafo_aristas_obtener_peso_dirigido():
     assert(grafo.obtener_peso("4","1") == -547)
     assert(grafo.obtener_peso("3","4") == 0)
 
-
 def prueba_grafo_obtener_adyacentes():
     grafo = Grafo(es_dirigido=True)
 
@@ -184,9 +183,46 @@ def prueba_grafo_vertice_aleatorio():
     for _ in range(iteraciones):
         assert(grafo.existe_vertice(grafo.obtener_vertice_random()))
 
-    
 
-def main():
+def prueba_bfs():
+    grafo = Grafo(False)
+
+    grafo.agregar_vertice("1")
+    grafo.agregar_vertice("2")
+    grafo.agregar_vertice("3")
+    grafo.agregar_vertice("4")
+    grafo.agregar_vertice("5")
+    grafo.agregar_vertice("6")
+    grafo.agregar_vertice("7")
+    grafo.agregar_vertice("8")
+    grafo.agregar_vertice("9")
+    grafo.agregar_vertice("10")
+    grafo.agregar_vertice("11")
+    grafo.agregar_vertice("12")
+
+    grafo.agregar_arista("1","2")
+    grafo.agregar_arista("1","3")
+    grafo.agregar_arista("2","3")
+    grafo.agregar_arista("2","10")
+    grafo.agregar_arista("3","4")
+    grafo.agregar_arista("3","5")
+    grafo.agregar_arista("5","6")
+    grafo.agregar_arista("5","7")
+    grafo.agregar_arista("5","8")
+    grafo.agregar_arista("5","9")
+    grafo.agregar_arista("7","8")
+    grafo.agregar_arista("8","9")
+    grafo.agregar_arista("8","11")
+    grafo.agregar_arista("9","10")
+    grafo.agregar_arista("11","12")
+
+
+    #(padres, orden) = bfs(grafo, "5")
+    #print(padres)
+    #print(orden)
+    print(camino_mas_corto(grafo, "11","4"))
+
+def mani():
     prueba_grafo_crear()
     prueba_grafo_agregar_borrar_vertices()
     prueba_grafo_aristas_adyacencia_no_dirigido()
@@ -197,5 +233,9 @@ def main():
     prueba_grafo_obtener_vertices()
     prueba_grafo_vertice_aleatorio()
     print("Todo OK :)")
+
+def main():
+    prueba_bfs()
+
 
 main()
