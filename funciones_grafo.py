@@ -1,4 +1,3 @@
-from typing import Deque
 from grafo import Grafo
 from collections import deque
 
@@ -26,9 +25,9 @@ def bfs(grafo, id_origen):
     padres[id_origen] = None
     orden[id_origen] = 0
     visitados.add(id_origen)
-    q = Deque()
+    q = deque()
     q.append(id_origen)
-    while not q.count() > 0:
+    while len(q) > 0:
         v = q.pop()
         for w in grafo.obtener_adyacentes(v):
             if w not in visitados:

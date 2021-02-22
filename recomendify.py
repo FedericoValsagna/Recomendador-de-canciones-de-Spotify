@@ -5,8 +5,17 @@ from constantes import *
 
 
 
-def generar_camino(grafo1, cancion1, cancion2):
-    print(cancion1, cancion2)
+def _generar_camino(camino, padres, padre):
+    if not padre:
+        return
+    camino.append(padre)
+    _generar_camino(camino, padres, padres[padre])
+
+def generar_camino(grafo, cancion1, cancion2):
+    padres, _ = bfs(grafo, cancion2)
+    camino = []
+    _generar_camino(camino, padres, cancion1)
+    print(camino)
 
 def ejecutar_comando(comando, parametros, grafo1, grafo2):
     parametros = parametros.split(SEPARADOR)
@@ -20,6 +29,7 @@ def ejecutar_comando(comando, parametros, grafo1, grafo2):
             print(ERROR_CANCIONES)
             return False
         generar_camino(grafo1, cancion1, cancion2)
+
     if comando == MAS_IMPORTANTES:
         pass
     
