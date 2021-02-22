@@ -1,36 +1,12 @@
 from grafo import Grafo
 from funciones_grafo import bfs, dfs
 import sys
-
-
-#Campos archivo
-ID = 0
-USER_ID = 1
-TRACK_NAME = 2
-ARTIST = 3
-PLAYLIST_ID = 4
-PLAYLIST_NAME = 5
-GENRES = 6
-#Comandos programa
-COMANDOS = {"camino", "mas_importantes", "recomendacion", "ciclo", "rango", "clustering"}
-CAMINO = "camino"
-MAS_IMPORTANTES = "mas_importantes"
-RECOMENDACION = "recomendacion"
-CICLO = "ciclo"
-RANGO = "rango"
-CLUSTERING = "clustering"
-SEPARADOR = " <<<< "
-#Errores
-ERROR_COMANDO = "El comando ingresado no es valido"
-ERROR_PARAMETROS_CANTIDAD = "Cantidad de parametros erronea"
-ERROR_PARAMETROS_NULO = "Por favor ingrese parametros con su comando"
-ERROR_CANCIONES = "Tanto el origen como el destino deben ser canciones."
+from constantes import *
 
 
 
 def generar_camino(grafo1, cancion1, cancion2):
     print(cancion1, cancion2)
-
 
 def ejecutar_comando(comando, parametros, grafo1, grafo2):
     parametros = parametros.split(SEPARADOR)
@@ -45,14 +21,19 @@ def ejecutar_comando(comando, parametros, grafo1, grafo2):
             return False
         generar_camino(grafo1, cancion1, cancion2)
     if comando == MAS_IMPORTANTES:
+        pass
     
     if comando == RECOMENDACION:
+        pass
 
     if comando == CICLO:
+        pass
 
     if comando == RANGO:
+        pass
     
     if comando == CLUSTERING:
+        pass
 
 def verificar_comando(comando):
     return comando in COMANDOS
@@ -61,7 +42,9 @@ def procesar_comando(grafo1, grafo2):
         linea = "First"
         while linea:
             linea = sys.stdin.readline().rstrip()
-            linea = linea.split(" ")    
+            if not linea:
+                break
+            linea = linea.split(" ")
             if not verificar_comando(linea[0]):
                 print(ERROR_COMANDO)
                 continue
@@ -138,4 +121,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
