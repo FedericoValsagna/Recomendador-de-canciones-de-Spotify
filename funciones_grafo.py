@@ -26,7 +26,7 @@ def bfs(grafo, id_origen):
     orden[id_origen] = 0
     visitados.add(id_origen)
     q = deque()
-    q.append(id_origen)
+    q.appendleft(id_origen)
     while len(q) > 0:
         v = q.pop()
         for w in grafo.obtener_adyacentes(v):
@@ -34,7 +34,7 @@ def bfs(grafo, id_origen):
                 padres[w] = v
                 orden[w] = orden[v] + 1
                 visitados.add(w)
-                q.append(w)
+                q.appendleft(w)
     return padres, orden
 
 
