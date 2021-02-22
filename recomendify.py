@@ -4,7 +4,6 @@ from constantes import *
 from funciones_recomendify import *
 
 def ejecutar_comando(comando, parametros, grafo1, grafo2):
-    parametros = parametros.split(SEPARADOR)
     if comando == CAMINO:
         camino_mas_corto(grafo1, parametros)
 
@@ -41,7 +40,8 @@ def procesar_comando(grafo1, grafo2):
                 continue
             comando = linea[0]
             linea = " ".join(linea[1:])
-            ejecutar_comando(comando, linea, grafo1, grafo2)
+            parametros = linea.split(SEPARADOR)
+            ejecutar_comando(comando, parametros, grafo1, grafo2)
 
 def procesar_archivo(ruta, grafo1, grafo2):
     with open(ruta, encoding = "utf8") as archivo:
