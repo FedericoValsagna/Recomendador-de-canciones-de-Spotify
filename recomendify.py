@@ -2,6 +2,8 @@ from grafo import Grafo
 from funciones_grafo import bfs, dfs
 import sys
 
+
+#Campos archivo
 ID = 0
 USER_ID = 1
 TRACK_NAME = 2
@@ -9,16 +11,20 @@ ARTIST = 3
 PLAYLIST_ID = 4
 PLAYLIST_NAME = 5
 GENRES = 6
-
+#Comandos programa
 COMANDOS = {"camino", "mas_importantes", "recomendacion", "ciclo", "rango", "clustering"}
-
 CAMINO = "camino"
 MAS_IMPORTANTES = "mas_importantes"
 RECOMENDACION = "recomendacion"
 CICLO = "ciclo"
 RANGO = "rango"
 CLUSTERING = "clustering"
-
+SEPARADOR = " <<<< "
+#Errores
+ERROR_COMANDO = "El comando ingresado no es valido"
+ERROR_PARAMETROS_CANTIDAD = "Cantidad de parametros erronea"
+ERROR_PARAMETROS_NULO = "Por favor ingrese parametros con su comando"
+ERROR_CANCIONES = "Tanto el origen como el destino deben ser canciones."
 
 
 
@@ -27,17 +33,26 @@ def generar_camino(grafo1, cancion1, cancion2):
 
 
 def ejecutar_comando(comando, parametros, grafo1, grafo2):
-    parametros = parametros.split(" >>>> ")
+    parametros = parametros.split(SEPARADOR)
     if comando == CAMINO:
         if len(parametros) != 2:
-            print("Cantidad de parametros erronea")
+            print(ERROR_PARAMETROS_CANTIDAD)
             return False
         cancion1 = parametros[0]
         cancion2 = parametros[1]
         if(not grafo1.existe_vertice(cancion1) or not grafo1.existe_vertice(cancion2)):
-            print("Tanto el origen como el destino deben ser canciones.")
+            print(ERROR_CANCIONES)
             return False
         generar_camino(grafo1, cancion1, cancion2)
+    if comando == MAS_IMPORTANTES:
+    
+    if comando == RECOMENDACION:
+
+    if comando == CICLO:
+
+    if comando == RANGO:
+    
+    if comando == CLUSTERING:
 
 def verificar_comando(comando):
     return comando in COMANDOS
@@ -48,10 +63,10 @@ def procesar_comando(grafo1, grafo2):
             linea = sys.stdin.readline().rstrip()
             linea = linea.split(" ")    
             if not verificar_comando(linea[0]):
-                print("El comando ingresado no es valido")
+                print(ERROR_COMANDO)
                 continue
             if len(linea) < 2:
-                print("Por favor ingrese parametros con su comando")
+                print(ERROR_PARAMETROS_NULO)
                 continue
             comando = linea[0]
             linea = " ".join(linea[1:])
