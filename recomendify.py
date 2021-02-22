@@ -1,35 +1,12 @@
-from grafo import Grafo
-from funciones_grafo import bfs, dfs
+from grafo import Grafo 
 import sys
 from constantes import *
 from funciones_recomendify import *
 
-
-
-def _generar_camino(camino, padres, padre):
-    if not padre:
-        return
-    camino.append(padre)
-    _generar_camino(camino, padres, padres[padre])
-
-def generar_camino(grafo, cancion1, cancion2):
-    padres, _ = bfs(grafo, cancion2)
-    camino = []
-    _generar_camino(camino, padres, cancion1)
-    print(camino)
-
 def ejecutar_comando(comando, parametros, grafo1, grafo2):
     parametros = parametros.split(SEPARADOR)
     if comando == CAMINO:
-        if len(parametros) != 2:
-            print(ERROR_PARAMETROS_CANTIDAD)
-            return False
-        cancion1 = parametros[0]
-        cancion2 = parametros[1]
-        if(not grafo1.existe_vertice(cancion1) or not grafo1.existe_vertice(cancion2)):
-            print(ERROR_CANCIONES)
-            return False
-        generar_camino(grafo1, cancion1, cancion2)
+        camino_mas_corto(grafo1, parametros)
 
     if comando == MAS_IMPORTANTES:
         pass
@@ -128,7 +105,6 @@ def main():
     print("Esperando comandos: ")
     procesar_comando(grafo1, grafo2)
     
-
 
 if __name__ == "__main__":
     main()

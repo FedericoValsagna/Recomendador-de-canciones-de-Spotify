@@ -64,4 +64,16 @@ def camino_mas_corto(grafo, id_origen, id_destino):
         camino.append((vertice_anterior, padres[vertice_anterior]))
         vertice_anterior = padres[vertice_anterior]
     return camino
+
+def _generar_camino(camino, padres, padre):
+    if not padre:
+        return
+    camino.append(padre)
+    _generar_camino(camino, padres, padres[padre])
+
+def generar_camino(grafo, cancion1, cancion2):
+    padres, _ = bfs(grafo, cancion2)
+    camino = []
+    _generar_camino(camino, padres, cancion1)
+    return camino
                 
