@@ -23,6 +23,7 @@ def ejecutar_comando(comando, parametros, recomendify):
     
     if comando == CLUSTERING:
         recomendify.coeficiente_de_clustering(parametros)
+    
 
 def verificar_comando(comando):
     return comando in COMANDOS

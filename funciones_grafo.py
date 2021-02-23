@@ -1,5 +1,6 @@
 from grafo import Grafo
 from collections import deque
+import random
 
 def _dfs(grafo, v, visitados, padres, orden):
     visitados.add(v)
@@ -76,4 +77,45 @@ def generar_camino(grafo, cancion1, cancion2):
     camino = []
     _generar_camino(camino, padres, cancion1)
     return camino
-                
+
+def _page_rank_vertice(grafo, vertice, page_rank):
+    
+    d = 0.85
+    N = grafo.obtener_cantidad_vertices()
+
+    sumatoria = 0
+    for adyacente in grafo.obtener_adyacentes(vertice):
+        sumatoria += page_rank[adyacente] / grafo.obtener_cantidad_adyacentes(adyacente)
+    
+    return (1.0 - d) / N  + d * sumatoria
+
+def page_rank(grafo, iteraciones):
+    page_rank = {}
+    #Settear inicialmente todos los pageranks en 1
+    for vertice in grafo.obtener_vertices():
+        page_rank[vertice] = 1
+    
+    for i in range(iteraciones):
+        for vertice in grafo.obtener_vertices():
+            page_rank[vertice] = _page_rank_vertice(grafo, vertice, page_rank)
+    
+    
+    #Del diccionario crea una lista sorteada de mas popular a menos popluar
+    ranking = sorted(page_rank, key = page_rank.get, reverse = True)
+    return page_rank, ranking
+
+def page_rank_personalizado(grafo, rw_cantidad, rw_largo): # rw = random_walks
+    page_rank = {}
+    #Settear inicialmente todos los pageranks en 1
+    for vertice in grafo.obtener_vertices():
+        page_rank[vertice] = 1
+
+    #Hacer rw_cantidad numero de random walks
+    for i in range (rw_cantidad):
+        vertice = grafo.obtener_vertice_random()
+        #Saltar rw_largo de veces de un vertice a otro adyacente aleatoreo
+        for j in range(rw_largo):
+            _page_rank_vertice(grafo, vertice, page_rank)
+            vertice = random.choice(list(grafo.obtener_adyacentes(vertice)))
+
+    return page_rank
