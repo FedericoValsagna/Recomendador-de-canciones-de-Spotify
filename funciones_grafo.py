@@ -3,7 +3,8 @@ from collections import deque
 
 def _dfs(grafo, v, visitados, padres, orden):
     visitados.add(v)
-    for w in grafo.obtener_adyacentes(v):
+    a = {}
+    for w in grafo.obtener_adyacentes(v).keys():
         padres[w] = v
         orden[w] = orden[v] + 1
         _dfs(grafo, w, visitados, padres, orden)
@@ -29,7 +30,7 @@ def bfs(grafo, id_origen):
     q.appendleft(id_origen)
     while len(q) > 0:
         v = q.pop()
-        for w in grafo.obtener_adyacentes(v):
+        for w in grafo.obtener_adyacentes(v).keys():
             if w not in visitados:
                 padres[w] = v
                 orden[w] = orden[v] + 1
