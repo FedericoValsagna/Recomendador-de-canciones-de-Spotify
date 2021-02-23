@@ -15,7 +15,7 @@ def _procesar_archivo(ruta_archivo, grafo1, grafo2, playlist_canciones_actual):
         linea = archivo.readline()
         while linea:
             linea = linea.rstrip('\n')
-            linea = linea.split('\t')
+            linea = linea.split(SEPARADOR_ARCHIVO)
             _procesar_linea(linea, grafo1, grafo2, playlist_canciones_actual)
             linea = archivo.readline()
 

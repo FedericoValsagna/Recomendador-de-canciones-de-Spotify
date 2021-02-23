@@ -11,19 +11,34 @@ class Recomendify:
     def camino_mas_corto(self, parametros):
         if len(parametros) != 2:
             print(ERROR_PARAMETROS_CANTIDAD)
-            return False
+            return
         cancion1 = parametros[0]
         cancion2 = parametros[1]
-        if(not self.grafo1.existe_vertice(cancion1) or not self.grafo1.existe_vertice(cancion2)):
+        if(not self.grafo2.existe_vertice(cancion1) or not self.grafo2.existe_vertice(cancion2)):
             print(ERROR_CANCIONES)
-            return False
-        camino = generar_camino(self.grafo1, cancion1, cancion2)
+            return
+        camino = generar_camino(self.grafo1, cancion2, cancion1)
+        if not camino:
+            print(ERROR_NO_RECORRIDO)
+            return
+        for i in range(len(camino) - 1):
+            if i % 2 == 0:
+                cancion_actual = camino[i]
+                playlist_actual = self.grafo1.obtener_peso(camino[i], camino[i+1])[0][OFFSET_PLAYLIST_NAME]
+                print(SALIDA_CANCION.format(cancion_actual, playlist_actual), end="")
+            else:
+                usuario_actual = camino[i]
+                playlist_actual = self.grafo1.obtener_peso(camino[i], camino[i+1])[0][OFFSET_PLAYLIST_NAME]
+                print(SALIDA_USUARIO.format(usuario_actual, playlist_actual), end="")
+        print(camino[len(camino)- 1])
 
     def canciones_mas_importantes(self, parametros):
         if len(parametros) != 1:
             print(ERROR_PARAMETROS_CANTIDAD)
+            return
         if not parametros[0].isnumeric():
-            print("El parametro no es numerico")
+            print(ERROR_NO_NUMERICO)
+            return
         
         for i in range(int(parametros[0])):
             print(self.ranking[i], self.page_rank[self.ranking[i]])

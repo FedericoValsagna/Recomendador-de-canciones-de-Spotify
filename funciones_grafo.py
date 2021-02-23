@@ -54,8 +54,9 @@ def bfs_parcial(grafo, id_origen, id_destino):
                 cola.appendleft(adyacente)
                 if adyacente == id_destino:
                     return padres
+    return None
 
-def camino_mas_corto(grafo, id_origen, id_destino):
+def camino_mas_corto(grafo, id_origen, id_destino): # BORRAR FUNCION SI NO SE USA DESPUES
     padres = bfs_parcial(grafo, id_origen, id_destino)
 
     camino = []
@@ -73,9 +74,11 @@ def _generar_camino(camino, padres, padre):
     _generar_camino(camino, padres, padres[padre])
 
 def generar_camino(grafo, cancion1, cancion2):
-    padres, _ = bfs(grafo, cancion2)
+    padres = bfs_parcial(grafo, cancion1, cancion2)
+    if not padres:
+        return None
     camino = []
-    _generar_camino(camino, padres, cancion1)
+    _generar_camino(camino, padres, cancion2)
     return camino
 
 def _page_rank_vertice(grafo, vertice, page_rank):
