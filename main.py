@@ -1,9 +1,6 @@
 from recomendify import Recomendify
-from grafo import Grafo 
-import sys
 from constantes import *
-from funciones_recomendify import *
-
+import sys
 
 def ejecutar_comando(comando, parametros, recomendify):
     if comando == CAMINO:
@@ -24,7 +21,6 @@ def ejecutar_comando(comando, parametros, recomendify):
     if comando == CLUSTERING:
         recomendify.coeficiente_de_clustering(parametros)
     
-
 def verificar_comando(comando):
     return comando in COMANDOS
 
@@ -55,6 +51,5 @@ def main():
     print("Esperando comandos: ")
     procesar_comando(recomendify)
     
-
 if __name__ == "__main__":
     main()
