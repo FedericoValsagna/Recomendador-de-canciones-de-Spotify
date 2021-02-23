@@ -4,7 +4,8 @@ import random
 
 def _dfs(grafo, v, visitados, padres, orden):
     visitados.add(v)
-    for w in grafo.obtener_adyacentes(v):
+    a = {}
+    for w in grafo.obtener_adyacentes(v).keys():
         padres[w] = v
         orden[w] = orden[v] + 1
         _dfs(grafo, w, visitados, padres, orden)
@@ -30,7 +31,7 @@ def bfs(grafo, id_origen):
     q.appendleft(id_origen)
     while len(q) > 0:
         v = q.pop()
-        for w in grafo.obtener_adyacentes(v):
+        for w in grafo.obtener_adyacentes(v).keys():
             if w not in visitados:
                 padres[w] = v
                 orden[w] = orden[v] + 1
@@ -47,7 +48,7 @@ def bfs_parcial(grafo, id_origen, id_destino):
     cola.appendleft(id_origen)
     while len(cola) > 0:
         vertice = cola.pop()
-        for adyacente in grafo.obtener_adyacentes(vertice):
+        for adyacente in grafo.obtener_adyacentes(vertice).keys():
             if adyacente not in visitados:
                 padres[adyacente] = vertice
                 visitados.add(adyacente)
