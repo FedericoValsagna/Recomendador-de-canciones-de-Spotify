@@ -77,8 +77,7 @@ class Recomendify:
             print("El parametro no es numerico")
         
         for i in range(int(parametros[0])):
-            print(self.ranking[i])
-        pass
+            print(self.ranking[i], self.page_rank[self.ranking[i]])
 
     def recomendacion(self, parametros):
         pass

@@ -94,12 +94,11 @@ def page_rank(grafo, iteraciones):
     page_rank = {}
     #Settear inicialmente todos los pageranks en 1
     for vertice in grafo.obtener_vertices():
-        page_rank[vertice] = 1
+        page_rank[vertice] = 1 / grafo.obtener_cantidad_vertices()
     
     for i in range(iteraciones):
         for vertice in grafo.obtener_vertices():
             page_rank[vertice] = _page_rank_vertice(grafo, vertice, page_rank)
-    
     
     #Del diccionario crea una lista sorteada de mas popular a menos popluar
     ranking = sorted(page_rank, key = page_rank.get, reverse = True)
