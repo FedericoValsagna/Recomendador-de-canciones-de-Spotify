@@ -40,8 +40,10 @@ class Recomendify:
             print(ERROR_NO_NUMERICO)
             return
         
+        canciones = ""
         for i in range(int(parametros[0])):
-            print(self.ranking[i], self.page_rank[self.ranking[i]])
+            canciones += f"{self.ranking[i]}; "
+        print(canciones[:-2]) # Slice para que que no este el ultimo '; '
 
     def recomendacion(self, parametros):
         pass
