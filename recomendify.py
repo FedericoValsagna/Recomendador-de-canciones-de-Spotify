@@ -5,8 +5,11 @@ from recomendifutil import *
 class Recomendify:
 
     def __init__(self, ruta_archivo):
+        print("Generando grafos...")
         self.grafo1, self.grafo2 = generar_grafos(ruta_archivo)
+        print("Generando page_rank...")
         self.page_rank, self.ranking = page_rank(self.grafo2, ITERACIONES_PAGERANK)
+        print("Recomendify listo para usar!")
 
     def camino_mas_corto(self, parametros):
         parametros = parametros.split(SEPARADOR)

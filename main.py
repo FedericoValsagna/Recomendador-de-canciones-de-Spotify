@@ -25,10 +25,10 @@ def verificar_comando(comando):
     return comando in COMANDOS
 
 def procesar_comando(recomendify):
-        linea = "First"
+        linea = "Aprobanos Jorge"
         while linea:
             linea = sys.stdin.readline().rstrip()
-            if not linea:
+            if not linea or linea == COMANDO_QUIT or COMANDO_SALIR:
                 break
             linea = linea.split(" ")
             if not verificar_comando(linea[0]):
@@ -43,11 +43,7 @@ def procesar_comando(recomendify):
 
 def main():
     ruta_archivo = sys.argv[1]
-
-    print("Cargando datos...")
     recomendify = Recomendify(ruta_archivo)
-
-    print("Esperando comandos: ")
     procesar_comando(recomendify)
     
 if __name__ == "__main__":
