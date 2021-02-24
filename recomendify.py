@@ -9,6 +9,7 @@ class Recomendify:
         self.page_rank, self.ranking = page_rank(self.grafo2, ITERACIONES_PAGERANK)
 
     def camino_mas_corto(self, parametros):
+        parametros = parametros.split(SEPARADOR)
         if len(parametros) != 2:
             print(ERROR_PARAMETROS_CANTIDAD)
             return
@@ -36,12 +37,12 @@ class Recomendify:
         if len(parametros) != 1:
             print(ERROR_PARAMETROS_CANTIDAD)
             return
-        if not parametros[0].isnumeric():
+        if not parametros.isnumeric():
             print(ERROR_NO_NUMERICO)
             return
         
         canciones = ""
-        for i in range(int(parametros[0])):
+        for i in range(int(parametros)):
             canciones += f"{self.ranking[i]}; "
         print(canciones[:-2]) # Slice para que que no este el ultimo '; '
 
@@ -54,7 +55,27 @@ class Recomendify:
         pass
 
     def ciclo_de_n_canciones(self, parametros):
-        pass
+        parametros = parametros.split(" ")
+        if len(parametros) < 2:
+            print(ERROR_PARAMETROS_CANTIDAD)
+            return
+        n = parametros[0]
+        if not n.isnumeric():
+            print(ERROR_NO_NUMERICO)
+            return
+        cancion = " ".join(parametros[1:])
+        parametros = (n, cancion)
+        if len(parametros) != 2:
+            print(ERROR_PARAMETROS_CANTIDAD)
+            return
+        if not self.grafo2.existe_vertice(parametros[1]):
+            print(ERROR_NO_EXISTE_CANCION)
+            return
+        lista = ciclo_backtracking(self.grafo2, int(parametros[0]), parametros[1])
+        if not lista:
+            print(ERROR_NO_CICLO)
+            return
+        print(lista)
 
     def todas_en_rango(self, parametros):
         pass

@@ -39,8 +39,7 @@ def procesar_comando(recomendify):
                 continue
             comando = linea[0]
             linea = " ".join(linea[1:])
-            parametros = linea.split(SEPARADOR)
-            ejecutar_comando(comando, parametros, recomendify)
+            ejecutar_comando(comando, linea, recomendify)
 
 def main():
     ruta_archivo = sys.argv[1]
