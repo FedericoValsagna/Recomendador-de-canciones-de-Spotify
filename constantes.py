@@ -21,7 +21,6 @@ CICLO = "ciclo"
 RANGO = "rango"
 CLUSTERING = "clustering"
 SEPARADOR = " >>>> "
-
 # Errores
 ERROR_COMANDO = "El comando ingresado no es valido"
 ERROR_PARAMETROS_CANTIDAD = "Cantidad de parametros erronea"
@@ -37,7 +36,8 @@ SALIDA_USUARIO = "{} --> tiene una playlist --> {} --> donde aparece --> "
 ERROR_NO_NUMERICO = "El parametro no es numerico"
 
 # Recomendacion
-
+CANCIONES = "canciones"
+USUARIOS = "usuarios"
 # Ciclo de n canciones
 
 # Todas en rango

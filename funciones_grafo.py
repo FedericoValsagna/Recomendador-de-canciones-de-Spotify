@@ -106,18 +106,20 @@ def page_rank(grafo, iteraciones):
     ranking = sorted(page_rank, key = page_rank.get, reverse = True)
     return page_rank, ranking
 
-def page_rank_personalizado(grafo, rw_cantidad, rw_largo): # rw = random_walks
-    page_rank = {}
-    #Settear inicialmente todos los pageranks en 1
-    for vertice in grafo.obtener_vertices():
-        page_rank[vertice] = 1
 
-    #Hacer rw_cantidad numero de random walks
-    for i in range (rw_cantidad):
-        vertice = grafo.obtener_vertice_random()
-        #Saltar rw_largo de veces de un vertice a otro adyacente aleatoreo
-        for j in range(rw_largo):
-            _page_rank_vertice(grafo, vertice, page_rank)
-            vertice = random.choice(list(grafo.obtener_adyacentes(vertice)))
+def _page_rank_personalizado_vertice(grafo, page_rank, vertice_anterior, vertice_actual):
+    pr_anterior = page_rank.get(vertice_anterior, 1)
+    return page_rank.get(vertice_actual, 0) + pr_anterior / grafo.obtener_cantidad_adyacentes(vertice_anterior)
 
+def page_rank_personalizado(grafo, vertices, page_rank, rw_cantidad, rw_largo, modo_algoritmo): # rw = random_walks
+    for vertice in vertices:
+        actual = random.choice(list(grafo.obtener_adyacentes(vertice)))
+        anterior = vertice
+        #Hacer rw_cantidad numero de random walks
+        for i in range (rw_cantidad):
+            #Saltar rw_largo de veces de un vertice a otro adyacente aleatoreo
+            for j in range(rw_largo):
+                page_rank[actual] = _page_rank_personalizado_vertice(grafo, page_rank, anterior, actual)
+                anterior = actual
+                actual = random.choice(list(grafo.obtener_adyacentes(vertice)))
     return page_rank
