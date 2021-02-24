@@ -1,5 +1,4 @@
 from collections import deque
-from grafo import Grafo
 import random
 
 def _dfs(grafo, v, visitados, padres, orden):
