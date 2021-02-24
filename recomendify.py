@@ -47,6 +47,11 @@ class Recomendify:
         print(canciones[:-2]) # Slice para que que no este el ultimo '; '
 
     def recomendacion(self, parametros):
+        print(parametros)
+        modo_algoritmo = parametros[0]
+        cantidad_recomendaciones = parametros[1]
+        canciones = parametros[2].split(SEPARADOR)
+
         pass
 
     def ciclo_de_n_canciones(self, parametros):
@@ -77,3 +82,5 @@ class Recomendify:
 
     def coeficiente_de_clustering(self, parametros):
         pass
+
+
