@@ -34,7 +34,7 @@ def procesar_comando(recomendify):
             if not verificar_comando(linea[0]):
                 print(ERROR_COMANDO)
                 continue
-            if len(linea) < 2:
+            if linea[0] != CLUSTERING and len(linea) < 2:
                 print(ERROR_PARAMETROS_NULO)
                 continue
             comando = linea[0]
