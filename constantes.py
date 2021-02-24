@@ -38,6 +38,7 @@ ERROR_NO_NUMERICO = "El parametro no es numerico"
 # Recomendacion
 
 # Ciclo de n canciones
+ERROR_NO_CICLO = "No se encontro recorrido."
 
 # Todas en rango
 

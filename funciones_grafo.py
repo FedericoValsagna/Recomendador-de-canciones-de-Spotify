@@ -121,3 +121,29 @@ def page_rank_personalizado(grafo, rw_cantidad, rw_largo): # rw = random_walks
             vertice = random.choice(list(grafo.obtener_adyacentes(vertice)))
 
     return page_rank
+
+def _ciclo_backtracking(grafo, n, n_max, cancion_actual, cancion_buscada, visitados):
+    if n > n_max:
+        return False, None
+    if cancion_buscada == cancion_buscada and n == n_max:
+        return True, []
+    
+    for ad in grafo.obtener_adyacentes(cancion_actual):
+        if ad == cancion_buscada and n != n_max:
+            return False, None
+        if ad not in visitados:
+            visitados.add(ad)
+            resultado, lista = _ciclo_backtracking(grafo, n+1, n_max, ad, cancion_buscada, visitados)
+            if resultado:
+                lista.append(cancion_actual)
+                return resultado, lista
+            else:
+                visitados.remove(ad)
+    return False, None
+
+def ciclo_backtracking(grafo, n, cancion_buscada):
+    visitados = set()
+    resultado, lista = _ciclo_backtracking(grafo, 0, n, cancion_buscada, cancion_buscada, visitados)
+    if resultado:
+        lista.reverse()
+    return lista
