@@ -25,7 +25,7 @@ SEPARADOR = " >>>> "
 ERROR_COMANDO = "El comando ingresado no es valido"
 ERROR_PARAMETROS_CANTIDAD = "Cantidad de parametros erronea"
 ERROR_PARAMETROS_NULO = "Por favor ingrese parametros con su comando"
-
+ERROR_PARAMETROS_INCORRECTOS = "Parametros incorrectos"
 # Camino
 ERROR_CANCIONES = "Tanto el origen como el destino deben ser canciones."
 ERROR_NO_RECORRIDO = "No se encontro recorrido"

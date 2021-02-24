@@ -46,13 +46,36 @@ class Recomendify:
             canciones += f"{self.ranking[i]}; "
         print(canciones[:-2]) # Slice para que que no este el ultimo '; '
 
-    def recomendacion(self, parametros):
-        print(parametros)
-        modo_algoritmo = parametros[0]
-        cantidad_recomendaciones = parametros[1]
-        canciones = parametros[2].split(SEPARADOR)
+    def recomendacion(self, comando):
+        #Parsear comando                #Parametro[0] = canciones/usuarios      Parametro[1] = cantidad de recomendaciones
+        comando = comando.split(" ")
+        if len(comando) == 0:
+            print(ERROR_PARAMETROS_NULO)
+            return
+        if len(comando) < 3:
+            print(ERROR_PARAMETROS_CANTIDAD)
+            return
 
-        pass
+        if comando[0] != CANCIONES and comando[1] != USUARIOS:
+            print(ERROR_PARAMETROS_INCORRECTOS)
+            return
+
+        if not comando[1].isnumeric():
+            print(ERROR_NO_NUMERICO)
+            return
+        largo_comandos = len(comando[0]) + len(comando[1])
+        modo_algoritmo = comando[0]
+        cantidad_recomendaciones = int(comando[1])
+        comando = " ".join(comando)
+        comando = comando[largo_comandos + 2:]
+        canciones = comando.split(SEPARADOR)
+        #----------------------------------------------------------------------
+        RANDOM_WALKS = 10
+        LEN_WALKS = cantidad_recomendaciones * 2    #Por cada cancion que busque va a pasar por un usuario
+        page_rank_per = page_rank_personalizado(self.grafo1, canciones,RANDOM_WALKS, LEN_WALKS)
+        
+        ranking = sorted([item for item in page_rank_per.keys if self.grafo2.existe_vertice(x)], keys = page_rank.get(), reverse = True)
+        print(ranking)
 
     def ciclo_de_n_canciones(self, parametros):
         parametros = parametros.split(" ")

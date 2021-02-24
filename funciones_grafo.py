@@ -111,7 +111,8 @@ def _page_rank_personalizado_vertice(grafo, page_rank, vertice_anterior, vertice
     pr_anterior = page_rank.get(vertice_anterior, 1)
     return page_rank.get(vertice_actual, 0) + pr_anterior / grafo.obtener_cantidad_adyacentes(vertice_anterior)
 
-def page_rank_personalizado(grafo, vertices, page_rank, rw_cantidad, rw_largo, modo_algoritmo): # rw = random_walks
+def page_rank_personalizado(grafo, vertices, rw_cantidad, rw_largo): # rw = random_walks
+    page_rank = {}
     for vertice in vertices:
         actual = random.choice(list(grafo.obtener_adyacentes(vertice)))
         anterior = vertice
