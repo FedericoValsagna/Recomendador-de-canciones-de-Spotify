@@ -38,7 +38,7 @@ def bfs(grafo, id_origen):
                 q.appendleft(w)
     return padres, orden
 
-def bfs_parcial(grafo, id_origen, id_destino):
+def bfs_parcial_padres(grafo, id_origen, id_destino):
     padres = {}
     visitados = set()
     padres[id_origen] = None
@@ -56,16 +56,23 @@ def bfs_parcial(grafo, id_origen, id_destino):
                     return padres
     return None
 
-def camino_mas_corto(grafo, id_origen, id_destino): # BORRAR FUNCION SI NO SE USA DESPUES
-    padres = bfs_parcial(grafo, id_origen, id_destino)
-
-    camino = []
-    camino.append((id_destino, padres[id_destino]))
-    vertice_anterior = padres[id_destino]
-    while (id_origen, None) not in camino:
-        camino.append((vertice_anterior, padres[vertice_anterior]))
-        vertice_anterior = padres[vertice_anterior]
-    return camino
+def bfs_parcial_orden(grafo, id_origen, n):
+    orden = {}
+    visitados = set()
+    orden[id_origen] = 0
+    visitados.add(id_origen)
+    cola = deque()
+    cola.appendleft(id_origen)
+    while len(cola) > 0:
+        vertice = cola.pop()
+        for adyacente in grafo.obtener_adyacentes(vertice).keys():
+            if adyacente not in visitados:
+                orden[adyacente] = orden[vertice] + 1
+                if orden[adyacente] > n:
+                    return orden
+                visitados.add(adyacente)
+                cola.appendleft(adyacente)
+    return orden
 
 def _generar_camino(camino, padres, padre):
     if not padre:
@@ -74,7 +81,7 @@ def _generar_camino(camino, padres, padre):
     _generar_camino(camino, padres, padres[padre])
 
 def generar_camino(grafo, vertice1, vertice2):
-    padres = bfs_parcial(grafo, vertice1, vertice2)
+    padres = bfs_parcial_padres(grafo, vertice1, vertice2)
     if not padres:
         return None
     camino = []

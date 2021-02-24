@@ -93,6 +93,10 @@ class Grafo:
             self.vertices[id_2].adyacentes[id_1] = peso
 
     def es_adyacente(self, id_1, id_2):
+        if id_1 not in self.vertices:
+            raise ValueError("El vertice 1 no existe")
+        if id_2 not in self.vertices:
+            raise ValueError("El vertice 2 no existe")
         return id_2 in self.vertices[id_1].adyacentes
 
     def existe_vertice(self, id):
@@ -119,9 +123,13 @@ class Grafo:
         return vertices
 
     def obtener_adyacentes(self, id):
+        if id not in self.vertices:
+            raise ValueError("El vertice no existe")
         return self.vertices[id].adyacentes
     
     def obtener_cantidad_adyacentes(self, id):
+        if id not in self.vertices:
+            raise ValueError("El vertice no existe")
         return len(self.vertices[id].adyacentes)
 
     def obtener_cantidad_vertices(self):
