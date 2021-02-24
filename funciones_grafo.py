@@ -73,12 +73,12 @@ def _generar_camino(camino, padres, padre):
     camino.append(padre)
     _generar_camino(camino, padres, padres[padre])
 
-def generar_camino(grafo, cancion1, cancion2):
-    padres = bfs_parcial(grafo, cancion1, cancion2)
+def generar_camino(grafo, vertice1, vertice2):
+    padres = bfs_parcial(grafo, vertice1, vertice2)
     if not padres:
         return None
     camino = []
-    _generar_camino(camino, padres, cancion2)
+    _generar_camino(camino, padres, vertice2)
     return camino
 
 def _page_rank_vertice(grafo, vertice, page_rank):
@@ -122,28 +122,28 @@ def page_rank_personalizado(grafo, rw_cantidad, rw_largo): # rw = random_walks
 
     return page_rank
 
-def _ciclo_backtracking(grafo, n, n_max, cancion_actual, cancion_buscada, visitados):
+def _ciclo_backtracking(grafo, n, n_max, vertice_actual, vertice_buscado, visitados):
     if n > n_max:
         return False, None
-    if cancion_buscada == cancion_buscada and n == n_max:
+    if vertice_buscado == vertice_buscado and n == n_max:
         return True, []
     
-    for ad in grafo.obtener_adyacentes(cancion_actual):
-        if ad == cancion_buscada and n != n_max:
+    for ad in grafo.obtener_adyacentes(vertice_actual):
+        if ad == vertice_buscado and n != n_max:
             return False, None
         if ad not in visitados:
             visitados.add(ad)
-            resultado, lista = _ciclo_backtracking(grafo, n+1, n_max, ad, cancion_buscada, visitados)
+            resultado, lista = _ciclo_backtracking(grafo, n+1, n_max, ad, vertice_buscado, visitados)
             if resultado:
-                lista.append(cancion_actual)
+                lista.append(vertice_actual)
                 return resultado, lista
             else:
                 visitados.remove(ad)
     return False, None
 
-def ciclo_backtracking(grafo, n, cancion_buscada):
+def ciclo_backtracking(grafo, n, vertice):
     visitados = set()
-    resultado, lista = _ciclo_backtracking(grafo, 0, n, cancion_buscada, cancion_buscada, visitados)
+    resultado, lista = _ciclo_backtracking(grafo, 0, n, vertice, vertice, visitados)
     if resultado:
         lista.reverse()
     return lista
