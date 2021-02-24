@@ -9,6 +9,7 @@ GENRES = 6
 
 # Constantes
 OFFSET_PLAYLIST_NAME = 1
+ITERACIONES_PAGERANK = 5
 SEPARADOR_ARCHIVO = "\t"
 
 # Comandos programa

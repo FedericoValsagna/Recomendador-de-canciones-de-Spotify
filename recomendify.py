@@ -6,7 +6,7 @@ class Recomendify:
 
     def __init__(self, ruta_archivo):
         self.grafo1, self.grafo2 = generar_grafos(ruta_archivo)
-        self.page_rank, self.ranking = page_rank(self.grafo2, 1)
+        self.page_rank, self.ranking = page_rank(self.grafo2, ITERACIONES_PAGERANK)
 
     def camino_mas_corto(self, parametros):
         parametros = parametros.split(SEPARADOR)
