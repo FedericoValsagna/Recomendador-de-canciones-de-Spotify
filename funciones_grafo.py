@@ -38,7 +38,7 @@ def bfs(grafo, id_origen):
                 q.appendleft(w)
     return padres, orden
 
-def bfs_parcial(grafo, id_origen, id_destino):
+def bfs_parcial_padres(grafo, id_origen, id_destino):
     padres = {}
     visitados = set()
     padres[id_origen] = None
@@ -56,16 +56,23 @@ def bfs_parcial(grafo, id_origen, id_destino):
                     return padres
     return None
 
-def camino_mas_corto(grafo, id_origen, id_destino): # BORRAR FUNCION SI NO SE USA DESPUES
-    padres = bfs_parcial(grafo, id_origen, id_destino)
-
-    camino = []
-    camino.append((id_destino, padres[id_destino]))
-    vertice_anterior = padres[id_destino]
-    while (id_origen, None) not in camino:
-        camino.append((vertice_anterior, padres[vertice_anterior]))
-        vertice_anterior = padres[vertice_anterior]
-    return camino
+def bfs_parcial_orden(grafo, id_origen, n):
+    orden = {}
+    visitados = set()
+    orden[id_origen] = 0
+    visitados.add(id_origen)
+    cola = deque()
+    cola.appendleft(id_origen)
+    while len(cola) > 0:
+        vertice = cola.pop()
+        for adyacente in grafo.obtener_adyacentes(vertice).keys():
+            if adyacente not in visitados:
+                orden[adyacente] = orden[vertice] + 1
+                if orden[adyacente] > n:
+                    return orden
+                visitados.add(adyacente)
+                cola.appendleft(adyacente)
+    return orden
 
 def _generar_camino(camino, padres, padre):
     if not padre:
@@ -73,12 +80,12 @@ def _generar_camino(camino, padres, padre):
     camino.append(padre)
     _generar_camino(camino, padres, padres[padre])
 
-def generar_camino(grafo, cancion1, cancion2):
-    padres = bfs_parcial(grafo, cancion1, cancion2)
+def generar_camino(grafo, vertice1, vertice2):
+    padres = bfs_parcial_padres(grafo, vertice1, vertice2)
     if not padres:
         return None
     camino = []
-    _generar_camino(camino, padres, cancion2)
+    _generar_camino(camino, padres, vertice2)
     return camino
 
 def _page_rank_vertice(grafo, vertice, page_rank):
@@ -125,28 +132,28 @@ def page_rank_personalizado(grafo, vertices, rw_cantidad, rw_largo): # rw = rand
                 actual = random.choice(list(grafo.obtener_adyacentes(vertice)))
     return page_rank
 
-def _ciclo_backtracking(grafo, n, n_max, cancion_actual, cancion_buscada, visitados):
+def _ciclo_backtracking(grafo, n, n_max, vertice_actual, vertice_buscado, visitados):
     if n > n_max:
         return False, None
-    if cancion_buscada == cancion_buscada and n == n_max:
+    if vertice_buscado == vertice_buscado and n == n_max:
         return True, []
     
-    for ad in grafo.obtener_adyacentes(cancion_actual):
-        if ad == cancion_buscada and n != n_max:
+    for ad in grafo.obtener_adyacentes(vertice_actual):
+        if ad == vertice_buscado and n != n_max:
             return False, None
         if ad not in visitados:
             visitados.add(ad)
-            resultado, lista = _ciclo_backtracking(grafo, n+1, n_max, ad, cancion_buscada, visitados)
+            resultado, lista = _ciclo_backtracking(grafo, n+1, n_max, ad, vertice_buscado, visitados)
             if resultado:
-                lista.append(cancion_actual)
+                lista.append(vertice_actual)
                 return resultado, lista
             else:
                 visitados.remove(ad)
     return False, None
 
-def ciclo_backtracking(grafo, n, cancion_buscada):
+def ciclo_backtracking(grafo, n, vertice):
     visitados = set()
-    resultado, lista = _ciclo_backtracking(grafo, 0, n, cancion_buscada, cancion_buscada, visitados)
+    resultado, lista = _ciclo_backtracking(grafo, 0, n, vertice, vertice, visitados)
     if resultado:
         lista.reverse()
     return lista

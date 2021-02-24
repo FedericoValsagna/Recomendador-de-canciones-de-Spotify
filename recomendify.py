@@ -101,7 +101,28 @@ class Recomendify:
         print(lista)
 
     def todas_en_rango(self, parametros):
-        pass
+        parametros = parametros.split(" ")
+        if len(parametros) < 2:
+            print(ERROR_PARAMETROS_CANTIDAD)
+            return
+        n = parametros[0]
+        if not n.isnumeric():
+            print(ERROR_NO_NUMERICO)
+            return
+        cancion = " ".join(parametros[1:])
+        parametros = (n, cancion)
+        if len(parametros) != 2:
+            print(ERROR_PARAMETROS_CANTIDAD)
+            return
+        if not self.grafo2.existe_vertice(parametros[1]):
+            print(ERROR_NO_EXISTE_CANCION)
+            return
+        orden = bfs_parcial_orden(self.grafo2, parametros[1], int(n))
+        canciones_a_n_distancia = []
+        for v in orden:
+            if orden[v] == int(n):
+                canciones_a_n_distancia.append(v)
+        print(len(canciones_a_n_distancia))
 
     def coeficiente_de_clustering(self, parametros):
         pass
