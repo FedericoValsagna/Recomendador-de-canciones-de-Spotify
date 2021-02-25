@@ -236,6 +236,4 @@ def mani():
 
 def main():
     prueba_bfs()
-
-
 main()

@@ -56,7 +56,7 @@ class Recomendify:
             print(ERROR_PARAMETROS_CANTIDAD)
             return
 
-        if comando[0] != CANCIONES and comando[1] != USUARIOS:
+        if comando[0] != CANCIONES and comando[0] != USUARIOS:
             print(ERROR_PARAMETROS_INCORRECTOS)
             return
 
@@ -71,11 +71,15 @@ class Recomendify:
         canciones = comando.split(SEPARADOR)
         #----------------------------------------------------------------------
         RANDOM_WALKS = 10
-        LEN_WALKS = cantidad_recomendaciones * 2    #Por cada cancion que busque va a pasar por un usuario
-        page_rank_per = page_rank_personalizado(self.grafo1, canciones,RANDOM_WALKS, LEN_WALKS)
-        
-        ranking = sorted([item for item in page_rank_per.keys if self.grafo2.existe_vertice(x)], keys = page_rank.get(), reverse = True)
-        print(ranking)
+        LEN_WALKS = cantidad_recomendaciones * 1000   #Por cada cancion que busque va a pasar por un usuario
+        TP_PROBABILIDAD = 0.05
+        page_rank_per = page_rank_personalizado(self.grafo1, canciones,RANDOM_WALKS, LEN_WALKS, TP_PROBABILIDAD)
+        if modo_algoritmo == CANCIONES:
+            ranking = sorted([item for item in page_rank_per.keys() if self.grafo2.existe_vertice(item)], key = page_rank_per.get, reverse = True)
+        else:
+            ranking = sorted([item for item in page_rank_per.keys() if not self.grafo2.existe_vertice(item)], key = page_rank_per.get, reverse = True)
+        for i in range(cantidad_recomendaciones):
+            print(f"Cancion {i + 1}: {ranking[i]}")
 
     def ciclo_de_n_canciones(self, parametros):
         parametros = parametros.split(" ")

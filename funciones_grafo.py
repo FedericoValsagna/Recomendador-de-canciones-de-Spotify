@@ -118,7 +118,7 @@ def _page_rank_personalizado_vertice(grafo, page_rank, vertice_anterior, vertice
     pr_anterior = page_rank.get(vertice_anterior, 1)
     return page_rank.get(vertice_actual, 0) + pr_anterior / grafo.obtener_cantidad_adyacentes(vertice_anterior)
 
-def page_rank_personalizado(grafo, vertices, rw_cantidad, rw_largo): # rw = random_walks
+def page_rank_personalizado(grafo, vertices, rw_cantidad, rw_largo, tp_probabilidad): # rw = random_walks
     page_rank = {}
     for vertice in vertices:
         actual = random.choice(list(grafo.obtener_adyacentes(vertice)))
@@ -128,8 +128,12 @@ def page_rank_personalizado(grafo, vertices, rw_cantidad, rw_largo): # rw = rand
             #Saltar rw_largo de veces de un vertice a otro adyacente aleatoreo
             for j in range(rw_largo):
                 page_rank[actual] = _page_rank_personalizado_vertice(grafo, page_rank, anterior, actual)
+                if random.random() < tp_probabilidad:
+                    anterior = vertice
+                    actual = random.choice(list(grafo.obtener_adyacentes(vertice)))
+                    continue
                 anterior = actual
-                actual = random.choice(list(grafo.obtener_adyacentes(vertice)))
+                actual = random.choice(list(grafo.obtener_adyacentes(actual)))
     return page_rank
 
 def _ciclo_backtracking(grafo, n, n_max, vertice_actual, vertice_buscado, visitados):
