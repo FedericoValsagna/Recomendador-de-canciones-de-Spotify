@@ -37,15 +37,16 @@ class Recomendify:
         print(camino[len(camino)- 1])
 
     def canciones_mas_importantes(self, parametros):
+        parametros = parametros.split(" ")
         if len(parametros) != 1:
             print(ERROR_PARAMETROS_CANTIDAD)
             return
-        if not parametros.isnumeric():
+        if not parametros[0].isnumeric():
             print(ERROR_NO_NUMERICO)
             return
         
         canciones = ""
-        for i in range(int(parametros)):
+        for i in range(int(parametros[0])):
             canciones += f"{self.ranking[i]}; "
         print(canciones[:-2]) # Slice para que que no este el ultimo '; '
 
@@ -75,7 +76,7 @@ class Recomendify:
         #----------------------------------------------------------------------
         RANDOM_WALKS = 10
         LEN_WALKS = cantidad_recomendaciones * 1000
-        TP_PROBABILIDAD = 0.05
+        TP_PROBABILIDAD = 0
         page_rank_per = page_rank_personalizado(self.grafo1, canciones,RANDOM_WALKS, LEN_WALKS, TP_PROBABILIDAD)
         if modo_algoritmo == CANCIONES:
             ranking = sorted([item for item in page_rank_per.keys() if self.grafo2.existe_vertice(item) and item not in canciones], key = page_rank_per.get, reverse = True)
@@ -145,3 +146,14 @@ class Recomendify:
             for v in self.grafo2.obtener_vertices():
                 suma += clustering(self.grafo2, v)
             print(round(suma / self.grafo2.obtener_cantidad_vertices()), 3)
+
+    
+    def adyacentes(self, cancion):
+        if not cancion:
+            print(ERROR_PARAMETROS_NULO)
+        if not self.grafo2.existe_vertice(cancion):
+            print(ERROR_NO_EXISTE_CANCION)
+        
+        adyacentes = self.grafo2.obtener_adyacentes(cancion)
+        for cancion, pesos in adyacentes.items():
+            print(cancion, pesos)

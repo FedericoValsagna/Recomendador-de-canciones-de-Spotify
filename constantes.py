@@ -15,7 +15,7 @@ ITERACIONES_PAGERANK = 5
 SEPARADOR_ARCHIVO = "\t"
 
 # Comandos programa
-COMANDOS = {"camino", "mas_importantes", "recomendacion", "ciclo", "rango", "clustering"}
+COMANDOS = {"camino", "mas_importantes", "recomendacion", "ciclo", "rango", "clustering", "adyacentes"}
 CAMINO = "camino"
 MAS_IMPORTANTES = "mas_importantes"
 RECOMENDACION = "recomendacion"
@@ -23,6 +23,9 @@ CICLO = "ciclo"
 RANGO = "rango"
 CLUSTERING = "clustering"
 SEPARADOR = " >>>> "
+
+ADYACENTES = "adyacentes"
+
 # Errores
 ERROR_COMANDO = "El comando ingresado no es valido"
 ERROR_PARAMETROS_CANTIDAD = "Cantidad de parametros erronea"
