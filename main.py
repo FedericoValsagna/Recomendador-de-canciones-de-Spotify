@@ -28,7 +28,7 @@ def procesar_comando(recomendify):
         linea = "Aprobanos Jorge"
         while linea:
             linea = sys.stdin.readline().rstrip()
-            if not linea or linea == COMANDO_QUIT or COMANDO_SALIR:
+            if not linea or linea == COMANDO_QUIT or linea == COMANDO_SALIR:
                 break
             linea = linea.split(" ")
             if not verificar_comando(linea[0]):

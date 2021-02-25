@@ -71,14 +71,14 @@ class Recomendify:
         cantidad_recomendaciones = int(comando[1])
         comando = " ".join(comando)
         comando = comando[largo_comandos + 2:]
-        canciones = comando.split(SEPARADOR)
+        canciones = set(comando.split(SEPARADOR))
         #----------------------------------------------------------------------
         RANDOM_WALKS = 10
-        LEN_WALKS = cantidad_recomendaciones * 1000   #Por cada cancion que busque va a pasar por un usuario
+        LEN_WALKS = cantidad_recomendaciones * 1000
         TP_PROBABILIDAD = 0.05
         page_rank_per = page_rank_personalizado(self.grafo1, canciones,RANDOM_WALKS, LEN_WALKS, TP_PROBABILIDAD)
         if modo_algoritmo == CANCIONES:
-            ranking = sorted([item for item in page_rank_per.keys() if self.grafo2.existe_vertice(item)], key = page_rank_per.get, reverse = True)
+            ranking = sorted([item for item in page_rank_per.keys() if self.grafo2.existe_vertice(item) and item not in canciones], key = page_rank_per.get, reverse = True)
         else:
             ranking = sorted([item for item in page_rank_per.keys() if not self.grafo2.existe_vertice(item)], key = page_rank_per.get, reverse = True)
         for i in range(cantidad_recomendaciones):
