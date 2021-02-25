@@ -161,3 +161,15 @@ def ciclo_backtracking(grafo, n, vertice):
     if resultado:
         lista.reverse()
     return lista
+
+def clustering(grafo, vertice):
+    if grafo.obtener_cantidad_adyacentes(vertice) < 2:
+        return 0
+    adyacentes_adyacentes = 0
+    for v in grafo.obtener_adyacentes(vertice).keys():
+        for z in grafo.obtener_adyacentes(vertice).keys():
+            if grafo.es_adyacente(v, z):
+                adyacentes_adyacentes += 1
+    ci = adyacentes_adyacentes
+    ki = grafo.obtener_cantidad_adyacentes(vertice)
+    return round(ci / (ki * (ki - 1)), 3)
