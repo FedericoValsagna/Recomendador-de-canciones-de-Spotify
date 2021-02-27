@@ -6,7 +6,7 @@ class Recomendify:
 
     def __init__(self, ruta_archivo):
         print("Generando grafos...")
-        self.grafo1, self.grafo2 = generar_grafos(ruta_archivo)
+        self.grafo1, self.grafo2, self.playlists = generar_grafos(ruta_archivo)
         print("Generando page_rank...")
         self.page_rank, self.ranking = page_rank(self.grafo2, ITERACIONES_PAGERANK)
         print("Recomendify listo para usar!")
@@ -47,8 +47,7 @@ class Recomendify:
         
         canciones = ""
         for i in range(int(parametros[0])):
-            canciones += f"{self.ranking[i]}; "
-        print(canciones[:-2]) # Slice para que que no este el ultimo '; '
+            print(f"Cancion {i + 1}: {self.ranking[i]}, Pagerank: {self.page_rank[self.ranking[i]]}")
 
     def recomendacion(self, comando):
         #Parsear comando                #Parametro[0] = canciones/usuarios      Parametro[1] = cantidad de recomendaciones
