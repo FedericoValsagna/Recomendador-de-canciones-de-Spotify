@@ -9,7 +9,7 @@ def generar_grafos(ruta_archivo, playlists, usuarios):
     return grafo1, grafo2, playlists
 
 def _procesar_archivo(ruta_archivo, grafo1, playlists, usuarios):
-    with open(ruta_archivo, encoding = "utf8") as archivo:
+    with open(ruta_archivo) as archivo:
         archivo.readline() # 2 veces para no usar el header del archivo
         linea = archivo.readline()
         while linea:
