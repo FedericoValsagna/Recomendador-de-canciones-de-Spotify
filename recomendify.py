@@ -56,8 +56,9 @@ class Recomendify:
             return
         
         canciones = ""
-        for i in range(int(parametros[0])):
-            print(f"Cancion {i + 1}: {self.ranking[i]}")
+        for i in range(int(parametros[0]) - 1):
+            print(f"{self.ranking[i]}", end='; ')
+        print(self.ranking[int(parametros[0]) - 1])
 
     def recomendacion(self, comando):
         comando = comando.split(" ")
@@ -87,11 +88,14 @@ class Recomendify:
         TP_PROBABILIDAD = 0
         page_rank_per = page_rank_personalizado(self.grafo1, canciones,RANDOM_WALKS, LEN_WALKS, TP_PROBABILIDAD)
         if modo_algoritmo == CANCIONES:
-            ranking = sorted([item for item in page_rank_per.keys() if self.grafo2.existe_vertice(item) and item not in canciones], key = page_rank_per.get, reverse = True)
+            ranking = sorted([item for item in page_rank_per.keys() if item not in canciones], key = page_rank_per.get, reverse = True)
         else:
-            ranking = sorted([item for item in page_rank_per.keys() if not self.grafo2.existe_vertice(item)], key = page_rank_per.get, reverse = True)
+            ranking = sorted([item for item in page_rank_per.keys() if item in self.usuarios], key = page_rank_per.get, reverse = True)
+        print("Cantidad de recomendaciones: ", cantidad_recomendaciones)
+        print(page_rank_per)
+        print(cantidad_recomendaciones)
         for i in range(cantidad_recomendaciones):
-            print(f"Cancion {i + 1}: {ranking[i]}")
+            print(ranking[i], end="; ")
 
     def ciclo_de_n_canciones(self, parametros):
         if(self.grafo2.obtener_cantidad_vertices() == 0):

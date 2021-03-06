@@ -162,7 +162,7 @@ def ciclo_backtracking(grafo, n, vertice):
         lista.reverse()
     return lista
 
-def clustering(grafo, vertice):
+def clustering(grafo, vertice):   
     if grafo.obtener_cantidad_adyacentes(vertice) < 2:
         return 0
     adyacentes_adyacentes = 0
