@@ -34,6 +34,7 @@ class Recomendify:
                 usuario_actual = camino[i]
                 playlist_actual = self.grafo1.obtener_peso(camino[i], camino[i+1])[0]
                 print(SALIDA_USUARIO.format(usuario_actual, playlist_actual), end="")
+        print(camino[len(camino) - 1])
 
     def canciones_mas_importantes(self, parametros):
         parametros = parametros.split(" ")
