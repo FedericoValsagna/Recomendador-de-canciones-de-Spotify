@@ -101,7 +101,7 @@ def _page_rank_vertice(grafo, vertice, page_rank):
 
 def page_rank(grafo, iteraciones):
     page_rank = {}
-    #Settear inicialmente todos los pageranks en 1
+    #Settear inicialmente todos los pageranks en 1 / cant_vertices
     for vertice in grafo.obtener_vertices():
         page_rank[vertice] = 1 / grafo.obtener_cantidad_vertices()
     
