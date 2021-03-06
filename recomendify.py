@@ -161,4 +161,4 @@ class Recomendify:
             suma = 0
             for v in self.grafo2.obtener_vertices():
                 suma += clustering(self.grafo2, v)
-            print(round(suma / self.grafo2.obtener_cantidad_vertices()), 3)
+            print(round(suma / self.grafo2.obtener_cantidad_vertices(), 3))
