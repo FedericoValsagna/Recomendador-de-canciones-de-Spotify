@@ -160,18 +160,20 @@ def page_rank_personalizado(grafo, vertices, rw_cantidad, rw_largo, tp_probabili
                 actual = random.choice(list(grafo.obtener_adyacentes(actual)))
     return page_rank
 
-def _ciclo_backtracking(grafo, n, n_max, vertice_actual, vertice_buscado, visitados):
+def _ciclo_backtracking(grafo, n, n_max, vertice_actual, vertice_buscado, visitados, orden):
     if n > n_max:
         return False, None
     if vertice_actual == vertice_buscado and n == n_max:
-        return True, [vertice_buscado]
-    
+        return True, [vertice_actual]
+
     for ad in grafo.obtener_adyacentes(vertice_actual):
-        if ad == vertice_buscado and n != n_max:
-            return False, None
+        if ad == vertice_buscado and n != n_max - 1:
+            continue
+        if orden[ad] > (n_max - n):
+            continue
         if ad not in visitados:
             visitados.add(ad)
-            resultado, lista = _ciclo_backtracking(grafo, n+1, n_max, ad, vertice_buscado, visitados)
+            resultado, lista = _ciclo_backtracking(grafo, n+1, n_max, ad, vertice_buscado, visitados, orden)
             if resultado:
                 lista.append(vertice_actual)
                 return resultado, lista
@@ -180,8 +182,9 @@ def _ciclo_backtracking(grafo, n, n_max, vertice_actual, vertice_buscado, visita
     return False, None
 
 def ciclo_backtracking(grafo, n, vertice):
+    _, orden = bfs(grafo, vertice)
     visitados = set()
-    resultado, lista = _ciclo_backtracking(grafo, 0, n, vertice, vertice, visitados)
+    resultado, lista = _ciclo_backtracking(grafo, 0, n, vertice, vertice, visitados, orden)
     if resultado:
         lista.reverse()
     return lista
