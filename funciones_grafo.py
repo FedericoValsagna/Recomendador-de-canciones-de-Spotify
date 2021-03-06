@@ -88,6 +88,24 @@ def generar_camino(grafo, vertice1, vertice2):
     _generar_camino(camino, padres, vertice2)
     return camino
 
+def limpiar_diccionarios(dic1, dic2):
+    dic1.clear()
+    for key, value in dic2.items():
+        dic1[key] = value
+    dic2.clear()
+
+def listas_iguales(dic1, dic2, iteracion):
+    if(not dic1 or not dic2):
+        return False
+    list1 = sorted(dic1, key = dic1.get, reverse = True)
+    list2 = sorted(dic2, key = dic2.get, reverse = True)
+    cantidad_diferentes = 0
+    for i in range(len(list1)):
+        if list1[i] != list2[i]:
+            cantidad_diferentes += 1
+    return cantidad_diferentes < 3000
+
+
 def _page_rank_vertice(grafo, vertice, page_rank):
     
     d = 0.85
@@ -100,18 +118,24 @@ def _page_rank_vertice(grafo, vertice, page_rank):
     return (1.0 - d) / N  + d * sumatoria
 
 def page_rank(grafo, iteraciones):
-    page_rank = {}
+    page_rank_anterior = {}
+    page_rank_nuevo = {}
     #Settear inicialmente todos los pageranks en 1 / cant_vertices
     for vertice in grafo.obtener_vertices():
-        page_rank[vertice] = 1 / grafo.obtener_cantidad_vertices()
+        page_rank_anterior[vertice] = 1 / grafo.obtener_cantidad_vertices()
     
-    for i in range(iteraciones):
+    convergen = False
+    iteracion = 1
+    while(not convergen):
         for vertice in grafo.obtener_vertices():
-            page_rank[vertice] = _page_rank_vertice(grafo, vertice, page_rank)
+            page_rank_nuevo[vertice] = _page_rank_vertice(grafo, vertice, page_rank_anterior)
+        convergen = listas_iguales(page_rank_anterior, page_rank_nuevo,iteracion)
+        iteracion += 1
+        limpiar_diccionarios(page_rank_anterior, page_rank_nuevo)
     
     #Del diccionario crea una lista sorteada de mas popular a menos popluar
-    ranking = sorted(page_rank, key = page_rank.get, reverse = True)
-    return page_rank, ranking
+    ranking = sorted(page_rank_anterior, key = page_rank_anterior.get, reverse = True)
+    return page_rank_anterior, ranking
 
 
 def _page_rank_personalizado_vertice(grafo, page_rank, vertice_anterior, vertice_actual):
