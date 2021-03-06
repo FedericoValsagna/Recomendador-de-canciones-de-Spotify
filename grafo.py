@@ -55,7 +55,7 @@ class Grafo:
         self.vertices.pop(id)
         self.cantidad_vertices -= 1
         
-    def agregar_arista(self, id_1, id_2, peso=0):
+    def agregar_arista(self, id_1, id_2, peso=1):
         """
         Se crea una arista que une a los vertices pasados por parametros. Si el grafo es dirigido la arista va del primer vertice al segundo.
         Si no existe alguno de los vertices se levanta una exepción. Si la arista ya existe se levanta una exepción. 
@@ -63,7 +63,7 @@ class Grafo:
         No retorna ningun valor.
 
 
-        Parametro adicional: Peso de la arista, peso predeterminado: 0
+        Parametro adicional: Peso de la arista, peso predeterminado: 1
 
         """
         if id_1 not in self.vertices:

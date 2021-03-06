@@ -43,7 +43,7 @@ class Recomendify:
         print(camino[len(camino) - 1])
         
     def canciones_mas_importantes(self, parametros):
-        if(len(self.grafo2) == 0):
+        if(self.grafo2.obtener_cantidad_vertices() == 0):
             self._crear_grafo_2()
         if(not self.page_rank):
             self._generar_pagerank()
@@ -94,7 +94,7 @@ class Recomendify:
             print(f"Cancion {i + 1}: {ranking[i]}")
 
     def ciclo_de_n_canciones(self, parametros):
-        if(len(self.grafo2) == 0):
+        if(self.grafo2.obtener_cantidad_vertices() == 0):
             self._crear_grafo_2()
         parametros = parametros.split(" ")
         if len(parametros) < 2:
@@ -119,7 +119,7 @@ class Recomendify:
         print(lista)
 
     def todas_en_rango(self, parametros):
-        if(len(self.grafo2) == 0):
+        if(self.grafo2.obtener_cantidad_vertices() == 0):
             self._crear_grafo_2()
         parametros = parametros.split(" ")
         if len(parametros) < 2:
@@ -145,7 +145,7 @@ class Recomendify:
         print(len(canciones_a_n_distancia))
 
     def coeficiente_de_clustering(self, cancion):
-        if(len(self.grafo2) == 0):
+        if(self.grafo2.obtener_cantidad_vertices() == 0):
             self._crear_grafo_2()
         if cancion:
             if not self.grafo2.existe_vertice(cancion):
