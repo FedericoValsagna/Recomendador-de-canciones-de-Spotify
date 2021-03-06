@@ -29,7 +29,6 @@ class Recomendify:
             if i % 2 == 0:
                 cancion_actual = camino[i]
                 playlist_actual = self.grafo1.obtener_peso(camino[i], camino[i+1])[0]
-                print(self.grafo1.obtener_peso(camino[i], camino[i+1]))
                 print(SALIDA_CANCION.format(cancion_actual, playlist_actual), end="")
             else:
                 usuario_actual = camino[i]

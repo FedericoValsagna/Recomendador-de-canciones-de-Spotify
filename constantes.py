@@ -29,7 +29,7 @@ ERROR_PARAMETROS_CANTIDAD = "Cantidad de parametros erronea"
 ERROR_PARAMETROS_NULO = "Por favor ingrese parametros con su comando"
 ERROR_PARAMETROS_INCORRECTOS = "Parametros incorrectos"
 # Camino
-ERROR_CANCIONES = "Tanto el origen como el destino deben ser canciones."
+ERROR_CANCIONES = "Tanto el origen como el destino deben ser canciones"
 ERROR_NO_RECORRIDO = "No se encontro recorrido"
 SALIDA_CANCION = "{} --> aparece en playlist --> {} --> de --> "
 SALIDA_USUARIO = "{} --> tiene una playlist --> {} --> donde aparece --> "
@@ -42,7 +42,7 @@ ERROR_NO_EXISTE_CANCION_SEG = "El segundo parametro no es una cancion existente"
 CANCIONES = "canciones"
 USUARIOS = "usuarios"
 # Ciclo de n canciones
-ERROR_NO_CICLO = "No se encontro recorrido."
+ERROR_NO_CICLO = "No se encontro recorrido"
 
 # Todas en rango
 
