@@ -47,7 +47,7 @@ class Recomendify:
         
         canciones = ""
         for i in range(int(parametros[0])):
-            print(f"Cancion {i + 1}: {self.ranking[i]}, Pagerank: {self.page_rank[self.ranking[i]]}")
+            print(f"Cancion {i + 1}: {self.ranking[i]}")
 
     def recomendacion(self, comando):
         #Parsear comando                #Parametro[0] = canciones/usuarios      Parametro[1] = cantidad de recomendaciones
@@ -99,7 +99,7 @@ class Recomendify:
             print(ERROR_PARAMETROS_CANTIDAD)
             return
         if not self.grafo2.existe_vertice(parametros[1]):
-            print(ERROR_NO_EXISTE_CANCION)
+            print(ERROR_NO_EXISTE_CANCION_SEG)
             return
         lista = ciclo_backtracking(self.grafo2, int(parametros[0]), parametros[1])
         if not lista:
@@ -133,9 +133,6 @@ class Recomendify:
 
     def coeficiente_de_clustering(self, cancion):
         if cancion:
-            if len(cancion) > 1:
-                print(ERROR_PARAMETROS_CANTIDAD)
-                return
             if not self.grafo2.existe_vertice(cancion):
                 print(ERROR_NO_EXISTE_CANCION)
                 return
@@ -145,14 +142,3 @@ class Recomendify:
             for v in self.grafo2.obtener_vertices():
                 suma += clustering(self.grafo2, v)
             print(round(suma / self.grafo2.obtener_cantidad_vertices()), 3)
-
-    
-    def adyacentes(self, cancion):
-        if not cancion:
-            print(ERROR_PARAMETROS_NULO)
-        if not self.grafo2.existe_vertice(cancion):
-            print(ERROR_NO_EXISTE_CANCION)
-        
-        adyacentes = self.grafo2.obtener_adyacentes(cancion)
-        for cancion, pesos in adyacentes.items():
-            print(cancion, pesos)

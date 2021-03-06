@@ -15,7 +15,7 @@ ITERACIONES_PAGERANK = 10
 SEPARADOR_ARCHIVO = "\t"
 
 # Comandos programa
-COMANDOS = {"camino", "mas_importantes", "recomendacion", "ciclo", "rango", "clustering", "adyacentes"}
+COMANDOS = {"camino", "mas_importantes", "recomendacion", "ciclo", "rango", "clustering"}
 CAMINO = "camino"
 MAS_IMPORTANTES = "mas_importantes"
 RECOMENDACION = "recomendacion"
@@ -23,8 +23,6 @@ CICLO = "ciclo"
 RANGO = "rango"
 CLUSTERING = "clustering"
 SEPARADOR = " >>>> "
-
-ADYACENTES = "adyacentes"
 
 # Errores
 ERROR_COMANDO = "El comando ingresado no es valido"
@@ -39,7 +37,7 @@ SALIDA_USUARIO = "{} --> tiene una playlist --> {} --> donde aparece --> "
 
 # Canciones mas importantes
 ERROR_NO_NUMERICO = "El parametro no es numerico"
-ERROR_NO_EXISTE_CANCION = "El segundo parametro no es una cancion existente"
+ERROR_NO_EXISTE_CANCION_SEG = "El segundo parametro no es una cancion existente"
 
 # Recomendacion
 CANCIONES = "canciones"
@@ -50,3 +48,4 @@ ERROR_NO_CICLO = "No se encontro recorrido."
 # Todas en rango
 
 # Coeficiente de clustering
+ERROR_NO_EXISTE_CANCION = "No existe la cancion recibida por parametro"

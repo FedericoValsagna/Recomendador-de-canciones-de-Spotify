@@ -140,7 +140,7 @@ def _ciclo_backtracking(grafo, n, n_max, vertice_actual, vertice_buscado, visita
     if n > n_max:
         return False, None
     if vertice_buscado == vertice_buscado and n == n_max:
-        return True, []
+        return True, [vertice_buscado]
     
     for ad in grafo.obtener_adyacentes(vertice_actual):
         if ad == vertice_buscado and n != n_max:

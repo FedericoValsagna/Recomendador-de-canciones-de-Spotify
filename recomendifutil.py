@@ -5,7 +5,6 @@ def generar_grafos(ruta_archivo):
     grafo1 = Grafo()
     grafo2 = Grafo()
     playlists = {}
-    #playlist_canciones_actual = [None, []] # Primer elemento: ID playlist actual. Segundo: lista de canciones de playlist actual
     _procesar_archivo(ruta_archivo, grafo1, playlists)
     crear_grafo_2(grafo2, playlists)
     return grafo1, grafo2, playlists
@@ -28,7 +27,6 @@ def _procesar_linea(linea, grafo1, playlists):
     canciones.append(cancion)
     playlists[playlist] = canciones
     _crear_grafo1(grafo1, linea, cancion, usuario, playlist)
-    #_crear_grafo2(grafo2, cancion, playlist, playlist_canciones_actual)
 
 def _crear_grafo1(grafo1, linea, cancion, usuario, playlist):
     if not grafo1.existe_vertice(usuario):
@@ -43,14 +41,13 @@ def _crear_grafo1(grafo1, linea, cancion, usuario, playlist):
     lista_playlists = grafo1.obtener_peso(usuario, cancion)
     lista_playlists.append(playlist)
 
-
 def crear_grafo_2(grafo2, playlists):
     for playlist, canciones in playlists.items():
-        for i in range(len(canciones)):
-            for j in range(i, len(canciones)):
+        for i in range(len(canciones) - 1):
+            if not grafo2.existe_vertice(canciones[i]):
+                grafo2.agregar_vertice(canciones[i])
+            for j in range(i + 1, len(canciones)):
                 if not grafo2.existe_vertice(canciones[j]):
                     grafo2.agregar_vertice(canciones[j])
                 if not grafo2.es_adyacente(canciones[i], canciones[j]):
                     grafo2.agregar_arista(canciones[i], canciones[j])
-    
-             
