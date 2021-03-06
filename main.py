@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from recomendify import Recomendify
 from constantes import *
 import sys
