@@ -6,7 +6,8 @@ class Recomendify:
 
     def __init__(self, ruta_archivo):
         self.playlists = {}
-        self.grafo1, self.grafo2, self.playlists = generar_grafos(ruta_archivo, self.playlists)
+        self.usuarios = set()
+        self.grafo1, self.grafo2, self.playlists = generar_grafos(ruta_archivo, self.playlists, self.usuarios)
         #self.page_rank, self.ranking = page_rank(self.grafo2, ITERACIONES_PAGERANK)
         self.page_rank = None
         self.ranking = None
@@ -24,7 +25,7 @@ class Recomendify:
             return
         cancion1 = parametros[0]
         cancion2 = parametros[1]
-        if(not self.grafo2.existe_vertice(cancion1) or not self.grafo2.existe_vertice(cancion2)):
+        if(not self.grafo1.existe_vertice(cancion1) or not self.grafo1.existe_vertice(cancion2) or cancion1 in self.usuarios or cancion2 in self.usuarios):
             print(ERROR_CANCIONES)
             return
         camino = generar_camino(self.grafo1, cancion2, cancion1)
