@@ -116,7 +116,9 @@ class Recomendify:
         if not lista:
             print(ERROR_NO_CICLO)
             return
-        print(lista)
+        for can in range(len(lista) - 1):
+            print(f"{lista[can]} --> ", end="")
+        print(lista[len(lista) - 1])
 
     def todas_en_rango(self, parametros):
         if(self.grafo2.obtener_cantidad_vertices() == 0):
