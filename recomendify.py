@@ -6,7 +6,8 @@ class Recomendify:
 
     def __init__(self, ruta_archivo):
         self.playlists = {}
-        self.grafo1, self.grafo2, self.playlists = generar_grafos(ruta_archivo, self.playlists)
+        self.usuarios = set()
+        self.grafo1, self.grafo2, self.playlists = generar_grafos(ruta_archivo, self.playlists, self.usuarios)
         #self.page_rank, self.ranking = page_rank(self.grafo2, ITERACIONES_PAGERANK)
         self.page_rank = None
         self.ranking = None
@@ -24,7 +25,7 @@ class Recomendify:
             return
         cancion1 = parametros[0]
         cancion2 = parametros[1]
-        if(not self.grafo2.existe_vertice(cancion1) or not self.grafo2.existe_vertice(cancion2)):
+        if(not self.grafo1.existe_vertice(cancion1) or not self.grafo1.existe_vertice(cancion2) or cancion1 in self.usuarios or cancion2 in self.usuarios):
             print(ERROR_CANCIONES)
             return
         camino = generar_camino(self.grafo1, cancion2, cancion1)
@@ -88,14 +89,12 @@ class Recomendify:
         TP_PROBABILIDAD = 0
         page_rank_per = page_rank_personalizado(self.grafo1, canciones,RANDOM_WALKS, LEN_WALKS, TP_PROBABILIDAD)
         if modo_algoritmo == CANCIONES:
-            ranking = sorted([item for item in page_rank_per.keys() if item not in canciones], key = page_rank_per.get, reverse = True)
+            ranking = sorted([item for item in page_rank_per.keys() if item not in self.usuarios], key = page_rank_per.get, reverse = True)
         else:
             ranking = sorted([item for item in page_rank_per.keys() if item in self.usuarios], key = page_rank_per.get, reverse = True)
-        print("Cantidad de recomendaciones: ", cantidad_recomendaciones)
-        print(page_rank_per)
-        print(cantidad_recomendaciones)
-        for i in range(cantidad_recomendaciones):
+        for i in range(cantidad_recomendaciones - 1):
             print(ranking[i], end="; ")
+        print(ranking[cantidad_recomendaciones - 1])
 
     def ciclo_de_n_canciones(self, parametros):
         if(self.grafo2.obtener_cantidad_vertices() == 0):
@@ -120,7 +119,9 @@ class Recomendify:
         if not lista:
             print(ERROR_NO_CICLO)
             return
-        print(lista)
+        for can in range(len(lista) - 1):
+            print(f"{lista[can]} --> ", end="")
+        print(lista[len(lista) - 1])
 
     def todas_en_rango(self, parametros):
         if(self.grafo2.obtener_cantidad_vertices() == 0):
