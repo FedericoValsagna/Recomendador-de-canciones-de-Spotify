@@ -1,12 +1,11 @@
 from grafo import Grafo
 from constantes import *
 
-def generar_grafos(ruta_archivo):
+def generar_grafos(ruta_archivo, playlists):
     grafo1 = Grafo()
     grafo2 = Grafo()
-    playlists = {}
     _procesar_archivo(ruta_archivo, grafo1, playlists)
-    crear_grafo_2(grafo2, playlists)
+    #crear_grafo_2(grafo2, playlists)
     return grafo1, grafo2, playlists
 
 def _procesar_archivo(ruta_archivo, grafo1, playlists):

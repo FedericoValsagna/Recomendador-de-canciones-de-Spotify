@@ -5,11 +5,17 @@ from recomendifutil import *
 class Recomendify:
 
     def __init__(self, ruta_archivo):
-        print("Generando grafos...")
-        self.grafo1, self.grafo2, self.playlists = generar_grafos(ruta_archivo)
-        print("Generando page_rank...")
+        self.playlists = {}
+        self.grafo1, self.grafo2, self.playlists = generar_grafos(ruta_archivo, self.playlists)
+        #self.page_rank, self.ranking = page_rank(self.grafo2, ITERACIONES_PAGERANK)
+        self.page_rank = None
+        self.ranking = None
+
+    def _crear_grafo_2(self):
+        crear_grafo_2(self.grafo2, self.playlists)
+
+    def _generar_pagerank(self):
         self.page_rank, self.ranking = page_rank(self.grafo2, ITERACIONES_PAGERANK)
-        print("Recomendify listo para usar!")
 
     def camino_mas_corto(self, parametros):
         parametros = parametros.split(SEPARADOR)
@@ -35,8 +41,12 @@ class Recomendify:
                 playlist_actual = self.grafo1.obtener_peso(camino[i], camino[i+1])[0]
                 print(SALIDA_USUARIO.format(usuario_actual, playlist_actual), end="")
         print(camino[len(camino) - 1])
-
+        
     def canciones_mas_importantes(self, parametros):
+        if(len(self.grafo2) == 0):
+            self._crear_grafo_2()
+        if(not self.page_rank):
+            self._generar_pagerank()
         parametros = parametros.split(" ")
         if len(parametros) != 1:
             print(ERROR_PARAMETROS_CANTIDAD)
@@ -50,7 +60,6 @@ class Recomendify:
             print(f"Cancion {i + 1}: {self.ranking[i]}")
 
     def recomendacion(self, comando):
-        #Parsear comando                #Parametro[0] = canciones/usuarios      Parametro[1] = cantidad de recomendaciones
         comando = comando.split(" ")
         if len(comando) == 0:
             print(ERROR_PARAMETROS_NULO)
@@ -85,6 +94,8 @@ class Recomendify:
             print(f"Cancion {i + 1}: {ranking[i]}")
 
     def ciclo_de_n_canciones(self, parametros):
+        if(len(self.grafo2) == 0):
+            self._crear_grafo_2()
         parametros = parametros.split(" ")
         if len(parametros) < 2:
             print(ERROR_PARAMETROS_CANTIDAD)
@@ -108,6 +119,8 @@ class Recomendify:
         print(lista)
 
     def todas_en_rango(self, parametros):
+        if(len(self.grafo2) == 0):
+            self._crear_grafo_2()
         parametros = parametros.split(" ")
         if len(parametros) < 2:
             print(ERROR_PARAMETROS_CANTIDAD)
@@ -132,6 +145,8 @@ class Recomendify:
         print(len(canciones_a_n_distancia))
 
     def coeficiente_de_clustering(self, cancion):
+        if(len(self.grafo2) == 0):
+            self._crear_grafo_2()
         if cancion:
             if not self.grafo2.existe_vertice(cancion):
                 print(ERROR_NO_EXISTE_CANCION)
