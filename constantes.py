@@ -10,7 +10,6 @@ GENRES = 6
 # Constantes
 COMANDO_SALIR = "salir"
 COMANDO_QUIT = "quit"
-ITERACIONES_PAGERANK = 2
 SEPARADOR_ARCHIVO = "\t"
 
 # Comandos programa

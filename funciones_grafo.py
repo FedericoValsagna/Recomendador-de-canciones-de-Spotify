@@ -88,22 +88,19 @@ def generar_camino(grafo, vertice1, vertice2):
     _generar_camino(camino, padres, vertice2)
     return camino
 
+def convergencia(dic1,dic2):
+    diferencias = 0
+    lista1 = sorted([item for item in dic1.keys()], key = dic1.get, reverse = True)
+    lista2 = sorted([item for item in dic2.keys()], key = dic2.get, reverse = True)
+    for i in range(len(lista1)):
+        diferencias += lista1[i] != lista2[i]
+    return diferencias == 0
+
 def limpiar_diccionarios(dic1, dic2):
     dic1.clear()
     for key, value in dic2.items():
         dic1[key] = value
     dic2.clear()
-
-def listas_iguales(dic1, dic2, iteracion):
-    if(not dic1 or not dic2):
-        return False
-    list1 = sorted(dic1, key = dic1.get, reverse = True)
-    list2 = sorted(dic2, key = dic2.get, reverse = True)
-    cantidad_diferentes = 0
-    for i in range(len(list1)):
-        if list1[i] != list2[i]:
-            cantidad_diferentes += 1
-    return cantidad_diferentes < 3000
 
 
 def _page_rank_vertice(grafo, vertice, page_rank):
@@ -115,27 +112,23 @@ def _page_rank_vertice(grafo, vertice, page_rank):
     for adyacente in grafo.obtener_adyacentes(vertice):
         sumatoria += page_rank[adyacente] / grafo.obtener_cantidad_adyacentes(adyacente)
     
-    return (1.0 - d) / N  + d * sumatoria
+    return ((1.0 - d) / N ) + (d * sumatoria)
 
-def page_rank(grafo, iteraciones):
+def page_rank(grafo):
     page_rank_anterior = {}
     page_rank_nuevo = {}
-    #Settear inicialmente todos los pageranks en 1 / cant_vertices
+    #Inicializar todos los pageranks en 1 / cant_vertices
     for vertice in grafo.obtener_vertices():
         page_rank_anterior[vertice] = 1 / grafo.obtener_cantidad_vertices()
     
     convergen = False
-    iteracion = 1
-    while(not convergen):
+    while not convergen:
         for vertice in grafo.obtener_vertices():
             page_rank_nuevo[vertice] = _page_rank_vertice(grafo, vertice, page_rank_anterior)
-        convergen = listas_iguales(page_rank_anterior, page_rank_nuevo,iteracion)
-        iteracion += 1
+        convergen = convergencia(page_rank_anterior, page_rank_nuevo)
         limpiar_diccionarios(page_rank_anterior, page_rank_nuevo)
     
-    #Del diccionario crea una lista sorteada de mas popular a menos popluar
-    ranking = sorted(page_rank_anterior, key = page_rank_anterior.get, reverse = True)
-    return page_rank_anterior, ranking
+    return page_rank_anterior
 
 
 def _page_rank_personalizado_vertice(grafo, page_rank, vertice_anterior, vertice_actual):
@@ -152,10 +145,6 @@ def page_rank_personalizado(grafo, vertices, rw_cantidad, rw_largo, tp_probabili
             #Saltar rw_largo de veces de un vertice a otro adyacente aleatoreo
             for j in range(rw_largo):
                 page_rank[actual] = _page_rank_personalizado_vertice(grafo, page_rank, anterior, actual)
-                if random.random() < tp_probabilidad:
-                    anterior = vertice
-                    actual = random.choice(list(grafo.obtener_adyacentes(vertice)))
-                    continue
                 anterior = actual
                 actual = random.choice(list(grafo.obtener_adyacentes(actual)))
     return page_rank
